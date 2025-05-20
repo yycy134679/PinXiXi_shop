@@ -4,12 +4,12 @@
         <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
             <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top"> <%-- sticky-top 使导航栏吸顶 --%>
-                    <div class="container-fluid">
+                    <div class="container">
                         <%-- 网站 Logo --%>
                             <a class="navbar-brand" href="${pageContext.request.contextPath}/home">
-                                <img src="${pageContext.request.contextPath}/images/logo.png" alt="PinXiXi Logo"
-                                    width="30" height="30" class="d-inline-block align-top">
-                                PinXiXi
+                                <img src="${pageContext.request.contextPath}/images/logo.png" alt="拼夕夕 Logo"
+                                    width="50" height="50" class="d-inline-block align-top me-2">
+                                <span class="navbar-brand-text">拼夕夕</span>
                             </a>
 
                             <%-- Navbar Toggler (用于小屏幕) --%>
@@ -21,7 +21,7 @@
 
                                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                                     <%-- 商品搜索框 (居中) --%>
-                                        <form class="d-flex mx-auto my-2 my-lg-0" style="max-width: 500px;"
+                                        <form class="d-flex mx-auto my-2 my-lg-0" style="width: 60%; max-width: 600px;"
                                             action="${pageContext.request.contextPath}/home" method="GET">
                                             <input class="form-control me-2" type="search" name="searchKeyword"
                                                 placeholder="搜索商品..." aria-label="Search"
