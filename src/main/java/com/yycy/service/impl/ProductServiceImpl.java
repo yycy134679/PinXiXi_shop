@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- * ProductServiceImpl.java
+ * 产品服务实现类
  * IProductService 接口的实现类。
  * 处理商品查询等业务逻辑。
  */
@@ -19,16 +19,37 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public List<Product> getAllProducts() {
-        throw new UnsupportedOperationException("getAllProducts not implemented yet.");
+        try {
+            return productDao.findAll();
+        } catch (Exception e) {
+            System.err.println("[ProductServiceImpl] getAllProducts 数据库异常: " + e.getMessage());
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
     }
 
     @Override
     public Product getProductById(int id) {
-        throw new UnsupportedOperationException("getProductById not implemented yet.");
+        try {
+            return productDao.findById(id);
+        } catch (Exception e) {
+            System.err.println("[ProductServiceImpl] getProductById 数据库异常: " + e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
     public List<Product> searchProductsByName(String nameKeyword) {
-        throw new UnsupportedOperationException("searchProductsByName not implemented yet.");
+        if (nameKeyword == null || nameKeyword.trim().isEmpty()) {
+            return getAllProducts();
+        }
+        try {
+            return productDao.findByNameContaining(nameKeyword);
+        } catch (Exception e) {
+            System.err.println("[ProductServiceImpl] searchProductsByName 数据库异常: " + e.getMessage());
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
     }
 }
