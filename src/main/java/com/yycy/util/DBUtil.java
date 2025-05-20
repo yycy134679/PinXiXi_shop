@@ -11,7 +11,7 @@ import java.sql.Statement;
  */
 public class DBUtil {
     // 数据库连接参数（生产环境建议使用配置文件或环境变量）
-    private static final String URL = "jdbc:mysql://localhost:3306/pinxixi_shop?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
+    private static final String URL = "jdbc:mysql://localhost:3306/pinxixi_shop?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8";
     private static final String USER = "root";
     private static final String PASSWORD = "123456";
 
