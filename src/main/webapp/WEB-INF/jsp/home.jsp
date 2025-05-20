@@ -9,7 +9,7 @@
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <title>
-                    <c:out value="${not empty pageTitle ? pageTitle : 'PinXiXi 电商平台'}" />
+                    <c:out value="${not empty pageTitle ? pageTitle : '拼夕夕 电商平台'}" />
                 </title>
                 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
                 <link rel="stylesheet"
@@ -68,6 +68,22 @@
                     .add-to-cart-btn {
                         margin-top: auto;
                     }
+
+                    .custom-footer {
+                        background: #f8f9fb;
+                        border-top: 1px solid #eee;
+                    }
+
+                    .footer-icon {
+                        font-size: 2.2rem;
+                    }
+
+                    .footer-text {
+                        font-size: 1.08rem;
+                        color: #333;
+                        font-weight: 500;
+                        letter-spacing: 0.01em;
+                    }
                 </style>
             </head>
 
@@ -76,10 +92,10 @@
                 <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
                     <div class="container">
                         <a class="navbar-brand" href="${pageContext.request.contextPath}/home">
-                            <img src="${pageContext.request.contextPath}/images/logo.png" alt="PinXiXi Logo" width="50"
+                            <img src="${pageContext.request.contextPath}/images/logo.png" alt="拼夕夕 Logo" width="50"
                                 height="50" class="d-inline-block align-top me-2">
                             <span class="navbar-brand-text"
-                                style="color: #ff7c7c; font-size: 2.8rem; font-weight: 900; letter-spacing: 0.08em; font-family: 'Arial Black', 'FZYaoti', 'FZCuHeiSongS-B-GB', 'FZShuTi', 'STHeiti', 'SimHei', sans-serif;">PinXiXi商城</span>
+                                style="color: #ff7c7c; font-size: 2.8rem; font-weight: 900; letter-spacing: 0.08em; font-family: 'Arial Black', 'FZYaoti', 'FZCuHeiSongS-B-GB', 'FZShuTi', 'STHeiti', 'SimHei', sans-serif;">拼夕夕商城</span>
                         </a>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                             data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
@@ -203,12 +219,34 @@
                 </div>
 
                 <!-- footer.jsp 内容内联 -->
-                <footer class="bg-light text-center text-lg-start mt-auto py-3">
+                <footer class="custom-footer mt-auto py-4">
                     <div class="container">
-                        <p class="text-center mb-0" style="font-size: 1.1rem; color: #333; letter-spacing: 0.02em;">
-                            &copy; 2025 PinXiXi 电商平台. All Rights Reserved. <span
-                                style="color: #888; font-size: 0.95em;">(期末作业演示)</span>
-                        </p>
+                        <div class="row justify-content-center text-center">
+                            <div class="col-6 col-md-3 mb-3 mb-md-0">
+                                <div class="footer-icon text-danger mb-2" style="font-size:2.2rem;"><i
+                                        class="bi bi-layers"></i>
+                                </div>
+                                <div class="footer-text">品类齐全，轻松购物</div>
+                            </div>
+                            <div class="col-6 col-md-3 mb-3 mb-md-0">
+                                <div class="footer-icon text-danger mb-2" style="font-size:2.2rem;"><i
+                                        class="bi bi-lightning-charge"></i>
+                                </div>
+                                <div class="footer-text">多仓直发，极速配送</div>
+                            </div>
+                            <div class="col-6 col-md-3 mb-3 mb-md-0">
+                                <div class="footer-icon text-danger mb-2" style="font-size:2.2rem;"><i
+                                        class="bi bi-patch-check"></i>
+                                </div>
+                                <div class="footer-text">正品行货，精致服务</div>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <div class="footer-icon text-danger mb-2" style="font-size:2.2rem;"><i
+                                        class="bi bi-cash-coin"></i>
+                                </div>
+                                <div class="footer-text">天天低价，畅选无忧</div>
+                            </div>
+                        </div>
                     </div>
                 </footer>
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
