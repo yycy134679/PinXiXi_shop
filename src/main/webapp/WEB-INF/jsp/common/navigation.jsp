@@ -7,9 +7,10 @@
                     <div class="container">
                         <%-- 网站 Logo --%>
                             <a class="navbar-brand" href="${pageContext.request.contextPath}/home">
-                                <img src="${pageContext.request.contextPath}/images/logo.png" alt="拼夕夕 Logo"
-                                    width="50" height="50" class="d-inline-block align-top me-2">
-                                <span class="navbar-brand-text">拼夕夕</span>
+                                <img src="${pageContext.request.contextPath}/images/logo.png" alt="拼夕夕 Logo" width="50"
+                                    height="50" class="d-inline-block align-top me-2">
+                                <span class="navbar-brand-text"
+                                    style="color: #ff7c7c; font-size: 2.8rem; font-weight: 900; letter-spacing: 0.08em; font-family: 'Arial Black', 'FZYaoti', 'FZCuHeiSongS-B-GB', 'FZShuTi', 'STHeiti', 'SimHei', sans-serif;">拼夕夕商城</span>
                             </a>
 
                             <%-- Navbar Toggler (用于小屏幕) --%>
