@@ -14,6 +14,12 @@
                 integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
                 crossorigin="anonymous"></script>
 
+            <!-- 全局 JS 变量定义 -->
+            <script>
+                const APP_CONTEXT_PATH = "${pageContext.request.contextPath}";
+                const USER_IS_LOGGED_IN = ${not empty sessionScope.loggedInUser};
+            </script>
+
             <!-- 自定义 JavaScript -->
             <script src="${pageContext.request.contextPath}/js/script.js"></script>
 
