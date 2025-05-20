@@ -4,8 +4,10 @@
 
             <footer class="bg-light text-center text-lg-start mt-auto py-3">
                 <div class="container">
-                    <p class="text-center mb-0">&copy; 2025 PinXiXi 电商平台. All Rights Reserved. (期末作业演示)</p>
-                    <%-- 你可以在这里添加更多页脚信息 --%>
+                    <p class="text-center mb-0" style="font-size: 1.1rem; color: #333; letter-spacing: 0.02em;">
+                        &copy; 2025 拼夕夕 电商平台. All Rights Reserved. <span
+                            style="color: #888; font-size: 0.95em;">(期末作业演示)</span>
+                    </p>
                 </div>
             </footer>
 
@@ -17,7 +19,7 @@
             <!-- 全局 JS 变量定义 -->
             <script>
                 const APP_CONTEXT_PATH = "${pageContext.request.contextPath}";
-                const USER_IS_LOGGED_IN = ${not empty sessionScope.loggedInUser};
+                const USER_IS_LOGGED_IN = <c:out value='${not empty sessionScope.loggedInUser}' />;
             </script>
 
             <!-- 自定义 JavaScript -->

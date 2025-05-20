@@ -25,9 +25,11 @@
 }
 
 .carousel-item img {
-    max-height: 100px !important;
-    object-fit: cover !important;
-    width: 100% !important;
-    height: 100px !important;
-    display: block;
+    max-height: 400px;
+    /* 设置你期望的最大高度 */
+    object-fit: contain;
+    /* 图片会被裁剪以填充空间，保持宽高比 */
+    /* 或者 object-fit: contain; 图片会完整显示，可能会有留白 */
+    width: 100%;
+    /* 确保宽度依然是100% */
 }
