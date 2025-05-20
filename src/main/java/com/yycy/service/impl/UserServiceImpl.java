@@ -36,18 +36,23 @@ public class UserServiceImpl implements IUserService {
     public boolean register(User user) {
         try {
             // 1. 检查用户名是否已存在
-            if (user == null || user.getUsername() == null || user.getPassword() == null) {
+            if (user == null || user.getUsername() == null || user.getPassword() == null || user.getPhone() == null) {
                 return false;
             }
             User exist = userDao.findByUsername(user.getUsername());
             if (exist != null) {
                 return false;
             }
-            // 2. 校验密码长度
+            // 2. 检查手机号是否已存在
+            User existPhone = userDao.findByPhone(user.getPhone());
+            if (existPhone != null) {
+                return false;
+            }
+            // 3. 校验密码长度
             if (user.getPassword().length() < 6) {
                 return false;
             }
-            // 3. 保存用户
+            // 4. 保存用户
             userDao.save(user);
             return true;
         } catch (Exception e) {
@@ -107,6 +112,26 @@ public class UserServiceImpl implements IUserService {
             user.setAvatarPath(avatarPath);
             userDao.update(user);
             return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean isUsernameAvailable(String username) {
+        try {
+            return userDao.findByUsername(username) == null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean isPhoneAvailable(String phone) {
+        try {
+            return userDao.findByPhone(phone) == null;
         } catch (Exception e) {
             e.printStackTrace();
             return false;

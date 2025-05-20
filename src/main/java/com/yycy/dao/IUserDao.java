@@ -41,4 +41,13 @@ public interface IUserDao {
      * @throws SQLException 数据库异常
      */
     void update(User user) throws SQLException;
+
+    /**
+     * 根据手机号查找用户
+     * 
+     * @param phone 手机号
+     * @return User对象，未找到返回null
+     * @throws SQLException 数据库异常
+     */
+    User findByPhone(String phone) throws SQLException;
 }

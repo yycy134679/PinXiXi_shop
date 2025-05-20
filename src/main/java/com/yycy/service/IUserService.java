@@ -60,5 +60,21 @@ public interface IUserService {
      */
     boolean updateUserAvatar(int userId, String avatarPath);
 
+    /**
+     * 检查用户名是否可用（未被注册）。
+     * 
+     * @param username 用户名
+     * @return 可用返回true，不可用返回false
+     */
+    boolean isUsernameAvailable(String username);
+
+    /**
+     * 检查手机号是否可用（未被注册）。
+     * 
+     * @param phone 手机号
+     * @return 可用返回true，不可用返回false
+     */
+    boolean isPhoneAvailable(String phone);
+
     // 登出通常在 Servlet 中直接操作 Session，不需要 Service 方法
 }

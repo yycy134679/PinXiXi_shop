@@ -68,6 +68,18 @@
         <!-- <url-pattern>/index</url-pattern> 可选 -->
     </servlet-mapping>
 
+    <!-- 5. 注册 RegisterServlet -->
+    <!--
+    <servlet>
+        <servlet-name>RegisterServlet</servlet-name>
+        <servlet-class>com.yycy.controller.RegisterServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RegisterServlet</servlet-name>
+        <url-pattern>/register</url-pattern>
+    </servlet-mapping>
+    -->
+
     <!-- 后续会在这里添加 Servlet 和其他 Filter 的配置 -->
 
 </web-app>

@@ -57,7 +57,7 @@ public class UserDaoImpl implements IUserDao {
 
     @Override
     public void save(User user) throws SQLException {
-        String sql = "INSERT INTO users (username, password, created_at, updated_at) VALUES (?, ?, NOW(), NOW())";
+        String sql = "INSERT INTO users (username, password, phone, created_at, updated_at) VALUES (?, ?, ?, NOW(), NOW())";
         Connection conn = null;
         PreparedStatement stmt = null;
         try {
@@ -65,6 +65,7 @@ public class UserDaoImpl implements IUserDao {
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, user.getUsername());
             stmt.setString(2, user.getPassword());
+            stmt.setString(3, user.getPhone());
             stmt.executeUpdate();
         } finally {
             DBUtil.close(conn, stmt);
@@ -88,6 +89,26 @@ public class UserDaoImpl implements IUserDao {
             stmt.executeUpdate();
         } finally {
             DBUtil.close(conn, stmt);
+        }
+    }
+
+    @Override
+    public User findByPhone(String phone) throws SQLException {
+        String sql = "SELECT * FROM users WHERE phone = ?";
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtil.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, phone);
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                return extractUserFromResultSet(rs);
+            }
+            return null;
+        } finally {
+            DBUtil.close(conn, stmt, rs);
         }
     }
 
