@@ -32,22 +32,20 @@ public class AuthenticationFilter implements Filter {
                 "/cart",
                 "/checkout",
                 "/submitOrder"));
-
         // 初始化公共路径 (示例)
         publicPaths = new HashSet<>(Arrays.asList(
                 "/login",
                 "/register",
                 "/logout",
                 "/home",
-                "/index",
-                "/index.jsp",
-                "/productDetail"));
-
+                "/productDetail",
+                "/validate"));
         // 初始化静态资源路径前缀 (示例)
         staticResourcePrefixes = new HashSet<>(Arrays.asList(
                 "/css/",
                 "/js/",
-                "/images/"));
+                "/images/",
+                "/fonts/"));
 
         Filter.super.init(filterConfig);
         System.out.println("AuthenticationFilter initialized.");
@@ -56,8 +54,50 @@ public class AuthenticationFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
+        HttpServletRequest req = (HttpServletRequest) request;
+        HttpServletResponse res = (HttpServletResponse) response;
+        HttpSession session = req.getSession(false);
+        String servletPath = req.getServletPath();
 
-        // 这里只做骨架，直接放行
+        // 1. 静态资源直接放行
+        for (String prefix : staticResourcePrefixes) {
+            if (servletPath.startsWith(prefix)) {
+                chain.doFilter(request, response);
+                return;
+            }
+        }
+
+        // 2. 公共路径直接放行
+        if (publicPaths.contains(servletPath)) {
+            chain.doFilter(request, response);
+            return;
+        }
+
+        // 3. 检查受保护路径的访问
+        User loggedInUser = (session != null) ? (User) session.getAttribute("loggedInUser") : null;
+        if (protectedPaths.contains(servletPath)) {
+            if (loggedInUser == null) {
+                session = req.getSession();
+                String query = req.getQueryString();
+                String originalURL = req.getRequestURI() + (query != null ? ("?" + query) : "");
+                session.setAttribute("redirectUrlAfterLogin", originalURL);
+                res.sendRedirect(req.getContextPath() + "/login");
+                return;
+            }
+            chain.doFilter(request, response);
+            return;
+        }
+
+        // 4. 处理未明确定义的路径 (默认策略：也视为受保护)
+        if (loggedInUser == null) {
+            session = req.getSession();
+            String query = req.getQueryString();
+            String originalURL = req.getRequestURI() + (query != null ? ("?" + query) : "");
+            session.setAttribute("redirectUrlAfterLogin", originalURL);
+            res.sendRedirect(req.getContextPath() + "/login");
+            return;
+        }
+        // 用户已登录，放行
         chain.doFilter(request, response);
     }
 
