@@ -237,8 +237,12 @@
                                         valid = false;
                                     }
                                 });
+                                console.log('[registerForm submit] 校验结果 valid =', valid);
                                 if (!valid) {
+                                    console.log('[registerForm submit] 阻止表单提交');
                                     e.preventDefault();
+                                } else {
+                                    console.log('[registerForm submit] 允许表单提交');
                                 }
                             });
                         });
