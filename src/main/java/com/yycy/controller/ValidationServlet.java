@@ -11,6 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+/**
+ * 用户注册信息校验控制器 ValidationServlet
+ * 负责处理用户注册时的校验请求
+ * 该Servlet会根据请求参数中的校验类型（用户名或手机号）进行相应的校验，并返回结果
+ */
+
 @WebServlet("/validate")
 public class ValidationServlet extends HttpServlet {
     private IUserService userService = new UserServiceImpl();

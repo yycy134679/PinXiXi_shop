@@ -34,10 +34,12 @@ public class AuthenticationFilter implements Filter {
                 "/submitOrder"));
         // 初始化公共路径 (示例)
         publicPaths = new HashSet<>(Arrays.asList(
+                "/", // 根路径
+                "/index.jsp", // 欢迎文件
+                "/home", // 首页Servlet
                 "/login",
                 "/register",
                 "/logout",
-                "/home",
                 "/productDetail",
                 "/validate"));
         // 初始化静态资源路径前缀 (示例)
