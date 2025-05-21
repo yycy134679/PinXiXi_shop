@@ -132,14 +132,20 @@
                                         <div class="mb-3">
                                             <label for="phone" class="form-label">手机号<span
                                                     class="text-danger">*</span></label>
-                                            <input type="tel"
-                                                class="form-control <c:if test='${not empty errors.phone}'>is-invalid</c:if>'"
-                                                id="phone" name="phone" required pattern="^1[3-9]\\d{9}$" maxlength="11"
-                                                autocomplete="tel" value="${phone != null ? phone : ''}"
-                                                aria-describedby="phoneErrorBlock phoneFeedback">
-                                            <div id="phoneFeedback" class="invalid-feedback">
-                                                <c:if test="${not empty errors.phone}">${errors.phone}</c:if>
+                                            <div class="input-group">
+                                                <input type="tel"
+                                                    class="form-control<c:if test='${not empty errors.phone}'> is-invalid</c:if>"
+                                                    id="phone" name="phone"
+                                                    value="${not empty requestScope.phone ? requestScope.phone : param.phone}"
+                                                    required maxlength="11" autocomplete="tel"
+                                                    aria-describedby="phoneFeedback">
+                                                <span class="input-group-text" id="phoneAvailabilityStatus"
+                                                    style="display: none;"></span>
                                             </div>
+                                            <div id="phoneFeedback" class="form-text"></div>
+                                            <c:if test="${not empty errors.phone}">
+                                                <div class="invalid-feedback d-block">${errors.phone}</div>
+                                            </c:if>
                                         </div>
                                         <button type="submit" class="btn btn-primary w-100 mt-3">注册</button>
                                     </form>
@@ -180,31 +186,54 @@
                                 }, 'json');
                             });
                             // 手机号实时校验
-                            $('#phone').on('input blur', function () {
-                                var val = this.value.trim();
-                                var $input = $(this);
-                                var $feedback = $('#phoneFeedback');
-                                var phoneReg = /^1[3-9]\d{9}$/;
-                                if (!val) {
-                                    $input.removeClass('is-valid').addClass('is-invalid');
-                                    $feedback.text('手机号不能为空');
+                            $('#phone').on('blur', function () {
+                                const phone = $(this).val().trim();
+                                const phoneFeedback = $('#phoneFeedback');
+                                const phoneAvailabilityStatus = $('#phoneAvailabilityStatus');
+                                const phoneInput = $(this);
+
+                                // 清除之前的状态
+                                phoneFeedback.text('').removeClass('text-danger text-success');
+                                phoneAvailabilityStatus.hide().removeClass('bg-success-subtle text-success-emphasis bg-danger-subtle text-danger-emphasis');
+                                phoneInput.removeClass('is-invalid is-valid');
+
+                                if (phone.length === 0 && phoneInput.prop('required')) {
+                                    phoneFeedback.text('手机号不能为空').addClass('text-danger');
+                                    phoneInput.addClass('is-invalid');
                                     return;
                                 }
-                                if (!phoneReg.test(val)) {
-                                    $input.removeClass('is-valid').addClass('is-invalid');
-                                    $feedback.text('手机号格式不正确');
-                                    return;
+                                if (phone.length > 0 && phone.length !== 11) {
+                                    phoneFeedback.text('请输入11位手机号码').addClass('text-danger');
+                                    phoneInput.addClass('is-invalid');
+                                    // return; // 也可不return，交给后端兜底
                                 }
-                                // 异步校验
-                                $.get('${pageContext.request.contextPath}/validate', { type: 'phone', value: val }, function (res) {
-                                    if (res.available) {
-                                        $input.removeClass('is-invalid').addClass('is-valid');
-                                        $feedback.text('手机号可用').removeClass('invalid-feedback').addClass('valid-feedback');
-                                    } else {
-                                        $input.removeClass('is-valid').addClass('is-invalid');
-                                        $feedback.text(res.message || '手机号已被注册').removeClass('valid-feedback').addClass('invalid-feedback');
-                                    }
-                                }, 'json');
+                                // 只要有输入就发AJAX查唯一性
+                                if (phone.length > 0) {
+                                    $.ajax({
+                                        url: (typeof contextPath !== 'undefined' ? contextPath : '') + '/validate',
+                                        type: 'GET',
+                                        data: {
+                                            type: 'phone',
+                                            value: phone
+                                        },
+                                        success: function (response) {
+                                            if (response.available) {
+                                                phoneAvailabilityStatus.text('手机号可用').addClass('bg-success-subtle text-success-emphasis').show();
+                                                phoneInput.addClass('is-valid');
+                                                phoneFeedback.text('');
+                                            } else {
+                                                phoneFeedback.text(response.message || '手机号已被注册').addClass('text-danger');
+                                                phoneInput.addClass('is-invalid');
+                                                phoneAvailabilityStatus.hide();
+                                            }
+                                        },
+                                        error: function () {
+                                            phoneFeedback.text('校验手机号时发生错误').addClass('text-danger');
+                                            phoneInput.addClass('is-invalid');
+                                            phoneAvailabilityStatus.hide();
+                                        }
+                                    });
+                                }
                             });
                             // 密码确认实时校验
                             $('#confirmPassword, #password').on('input blur', function () {
@@ -232,8 +261,15 @@
                             $('#registerForm').on('submit', function (e) {
                                 var valid = true;
                                 $('#registerForm input').each(function () {
-                                    if (!this.checkValidity() || $(this).hasClass('is-invalid')) {
+                                    if (this.name === 'phone') {
+                                        console.log('[ClientValidation] phone input pattern:', this.pattern, 'value:', this.value);
+                                    }
+                                    if (!this.checkValidity()) {
+                                        console.log('[ClientValidation] 字段未通过原生checkValidity:', this.name, this.value);
                                         $(this).addClass('is-invalid');
+                                        valid = false;
+                                    } else if ($(this).hasClass('is-invalid')) {
+                                        console.log('[ClientValidation] 字段有is-invalid类:', this.name, this.value);
                                         valid = false;
                                     }
                                 });
