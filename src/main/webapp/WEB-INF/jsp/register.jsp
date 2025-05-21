@@ -15,20 +15,25 @@
                         href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
                     <style type="text/css">
                         body {
-                            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+                            background-color: #ffffff;
+                            /* 修改背景为白色 */
                             min-height: 100vh;
                             display: flex;
                             align-items: center;
                             justify-content: center;
-                            padding: 0;
+                            padding: 20px 0;
+                            /* 给上下一些padding */
                         }
 
                         .register-card {
                             border: none;
                             border-radius: 0.75rem;
-                            box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.08);
-                            max-width: 400px;
-                            margin: 40px auto;
+                            box-shadow: 0 6px 30px 0 rgba(0, 0, 0, 0.1);
+                            /* 调整阴影以适应白色背景 */
+                            max-width: 550px;
+                            /* 加大表单宽度 */
+                            margin: 20px auto;
+                            /* 调整外边距 */
                         }
 
                         .form-label {
@@ -73,89 +78,10 @@
                 </head>
 
                 <body>
-                    <!-- 导航栏 -->
-                    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
-                        <div class="container">
-                            <a class="navbar-brand" href="${pageContext.request.contextPath}/home">
-                                <img src="${pageContext.request.contextPath}/images/logo.png" alt="拼夕夕 Logo" width="50"
-                                    height="50" class="d-inline-block align-top me-2">
-                                <span class="navbar-brand-text"
-                                    style="color: #ff7c7c; font-size: 2.8rem; font-weight: 900; letter-spacing: 0.08em; font-family: 'Arial Black', 'FZYaoti', 'FZCuHeiSongS-B-GB', 'FZShuTi', 'STHeiti', 'SimHei', sans-serif;">拼夕夕商城</span>
-                            </a>
-                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
-                                aria-expanded="false" aria-label="Toggle navigation">
-                                <span class="navbar-toggler-icon"></span>
-                            </button>
-                            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                                    <c:choose>
-                                        <c:when test="${empty sessionScope.loggedInUser}">
-                                            <li class="nav-item">
-                                                <a class="nav-link"
-                                                    href="${pageContext.request.contextPath}/login">登录</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link"
-                                                    href="${pageContext.request.contextPath}/register">注册</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="${pageContext.request.contextPath}/login"
-                                                    onclick="alert('请先登录后查看购物车'); return true;"><i
-                                                        class="bi bi-cart"></i> 购物车</a>
-                                            </li>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <li class="nav-item dropdown">
-                                                <a class="nav-link dropdown-toggle" href="#" id="navbarUserDropdown"
-                                                    role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <c:choose>
-                                                        <c:when
-                                                            test="${not empty sessionScope.loggedInUser.avatarPath}">
-                                                            <img src="${pageContext.request.contextPath}/${sessionScope.loggedInUser.avatarPath}"
-                                                                alt="User Avatar" width="24" height="24"
-                                                                class="rounded-circle me-1">
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            <i class="bi bi-person-circle me-1"></i>
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                    <c:out
-                                                        value="${not empty sessionScope.loggedInUser.nickname ? sessionScope.loggedInUser.nickname : sessionScope.loggedInUser.username}" />
-                                                </a>
-                                                <ul class="dropdown-menu dropdown-menu-end"
-                                                    aria-labelledby="navbarUserDropdown">
-                                                    <li><a class="dropdown-item"
-                                                            href="${pageContext.request.contextPath}/profile">个人中心</a>
-                                                    </li>
-                                                    <li>
-                                                        <hr class="dropdown-divider">
-                                                    </li>
-                                                    <li><a class="dropdown-item"
-                                                            href="${pageContext.request.contextPath}/logout">退出登录</a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="${pageContext.request.contextPath}/cart">
-                                                    <i class="bi bi-cart-fill"></i> 购物车
-                                                    <c:if
-                                                        test="${not empty sessionScope.cart && sessionScope.cart.totalItemsCount > 0}">
-                                                        <span
-                                                            class="badge bg-danger ms-1">${sessionScope.cart.totalItemsCount}</span>
-                                                    </c:if>
-                                                </a>
-                                            </li>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </ul>
-                            </div>
-                        </div>
-                    </nav>
-
                     <!-- 注册表单主体 -->
-                    <div class="container-fluid" style="min-height:100vh;">
-                        <div class="d-flex align-items-center justify-content-center" style="min-height:100vh;">
+                    <div class="container">
+                        <div class="d-flex align-items-center justify-content-center"
+                            style="min-height: calc(100vh - 40px);"> <!-- 调整高度以适应padding -->
                             <div class="card register-card w-100">
                                 <div class="card-body p-4">
                                     <div class="register-title">注册页面</div>
@@ -206,10 +132,14 @@
                                         <div class="mb-3">
                                             <label for="phone" class="form-label">手机号<span
                                                     class="text-danger">*</span></label>
-                                            <input type="tel" class="form-control" id="phone" name="phone" required
-                                                pattern="^1[3-9]\\d{9}$" maxlength="11" autocomplete="tel"
+                                            <input type="tel"
+                                                class="form-control <c:if test='${not empty errors.phone}'>is-invalid</c:if>'"
+                                                id="phone" name="phone" required pattern="^1[3-9]\\d{9}$" maxlength="11"
+                                                autocomplete="tel" value="${phone != null ? phone : ''}"
                                                 aria-describedby="phoneErrorBlock phoneFeedback">
-                                            <div id="phoneFeedback" class="invalid-feedback"></div>
+                                            <div id="phoneFeedback" class="invalid-feedback">
+                                                <c:if test="${not empty errors.phone}">${errors.phone}</c:if>
+                                            </div>
                                         </div>
                                         <button type="submit" class="btn btn-primary w-100 mt-3">注册</button>
                                     </form>
@@ -219,31 +149,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- 页脚 -->
-                    <footer class="custom-footer mt-auto py-4">
-                        <div class="container">
-                            <div class="row justify-content-center text-center">
-                                <div class="col-6 col-md-3 mb-3 mb-md-0">
-                                    <div class="footer-icon text-danger mb-2"><i class="bi bi-layers"></i></div>
-                                    <div class="footer-text">品类齐全，轻松购物</div>
-                                </div>
-                                <div class="col-6 col-md-3 mb-3 mb-md-0">
-                                    <div class="footer-icon text-danger mb-2"><i class="bi bi-lightning-charge"></i>
-                                    </div>
-                                    <div class="footer-text">多仓直发，极速配送</div>
-                                </div>
-                                <div class="col-6 col-md-3 mb-3 mb-md-0">
-                                    <div class="footer-icon text-danger mb-2"><i class="bi bi-patch-check"></i></div>
-                                    <div class="footer-text">正品行货，精致服务</div>
-                                </div>
-                                <div class="col-6 col-md-3">
-                                    <div class="footer-icon text-danger mb-2"><i class="bi bi-cash-coin"></i></div>
-                                    <div class="footer-text">天天低价，畅选无忧</div>
-                                </div>
-                            </div>
-                        </div>
-                    </footer>
                     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
                     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
                     <script>

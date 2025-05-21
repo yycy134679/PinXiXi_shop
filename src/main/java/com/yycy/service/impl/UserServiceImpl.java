@@ -137,4 +137,22 @@ public class UserServiceImpl implements IUserService {
             return false;
         }
     }
+
+    // 新增：用户名是否存在
+    public boolean checkUsernameExists(String username) {
+        try {
+            return userDao.findByUsername(username) != null;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    // 新增：手机号是否存在
+    public boolean checkPhoneExists(String phone) {
+        try {
+            return userDao.findByPhone(phone) != null;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }

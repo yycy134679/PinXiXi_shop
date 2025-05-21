@@ -61,6 +61,28 @@ public class RegisterServlet extends HttpServlet {
         user.setUsername(username);
         user.setPassword(password);
         user.setPhone(phone);
+
+        // 进一步后端唯一性校验，细化错误提示
+        boolean hasError = false;
+        if (userService instanceof com.yycy.service.impl.UserServiceImpl) {
+            com.yycy.service.impl.UserServiceImpl impl = (com.yycy.service.impl.UserServiceImpl) userService;
+            if (impl.checkUsernameExists(username)) {
+                errors.put("username", "用户名已存在，请更换用户名");
+                hasError = true;
+            }
+            if (impl.checkPhoneExists(phone)) {
+                errors.put("phone", "该手机号已被注册");
+                hasError = true;
+            }
+        }
+        if (hasError) {
+            request.setAttribute("errors", errors);
+            request.setAttribute("username", username);
+            request.setAttribute("phone", phone);
+            request.getRequestDispatcher("/WEB-INF/jsp/register.jsp").forward(request, response);
+            return;
+        }
+
         boolean success = userService.register(user);
         if (success) {
             // 注册成功后自动登录
@@ -69,7 +91,9 @@ public class RegisterServlet extends HttpServlet {
             session.setAttribute("loggedInUser", registeredUser);
             response.sendRedirect(request.getContextPath() + "/profile");
         } else {
-            request.setAttribute("errorMessage", "用户名已存在，请更换用户名");
+            // 兜底：理论上不会走到这里，除非数据库异常
+            errors.put("errorMessage", "注册失败，请稍后再试");
+            request.setAttribute("errors", errors);
             request.setAttribute("username", username);
             request.setAttribute("phone", phone);
             request.getRequestDispatcher("/WEB-INF/jsp/register.jsp").forward(request, response);
