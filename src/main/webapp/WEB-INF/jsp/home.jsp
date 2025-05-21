@@ -84,6 +84,33 @@
                         font-weight: 500;
                         letter-spacing: 0.01em;
                     }
+
+                    .navbar-nav .nav-link {
+                        font-size: 1.35rem;
+                        font-weight: 600;
+                        padding-left: 1.2rem;
+                        padding-right: 1.2rem;
+                        color: #444 !important;
+                        letter-spacing: 0.03em;
+                        transition: color 0.2s;
+                    }
+
+                    .navbar-nav .nav-link:hover,
+                    .navbar-nav .nav-link:focus {
+                        color: #ff4d4f !important;
+                        text-shadow: 0 1px 0 #fff2f0;
+                    }
+
+                    .navbar-nav .nav-item .bi {
+                        font-size: 1.5em;
+                        vertical-align: -0.2em;
+                        margin-right: 0.2em;
+                    }
+
+                    .navbar-nav .badge {
+                        font-size: 1em;
+                        padding: 0.4em 0.7em;
+                    }
                 </style>
             </head>
 
@@ -92,8 +119,8 @@
                 <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
                     <div class="container">
                         <a class="navbar-brand" href="${pageContext.request.contextPath}/home">
-                            <img src="${pageContext.request.contextPath}/images/logo.png" alt="拼夕夕 Logo" width="50"
-                                height="50" class="d-inline-block align-top me-2">
+                            <!-- <img src="${pageContext.request.contextPath}/images/logo.png" alt="拼夕夕 Logo" width="50"
+                                height="50" class="d-inline-block align-top me-2"> -->
                             <span class="navbar-brand-text"
                                 style="color: #ff7c7c; font-size: 2.8rem; font-weight: 900; letter-spacing: 0.08em; font-family: 'Arial Black', 'FZYaoti', 'FZCuHeiSongS-B-GB', 'FZShuTi', 'STHeiti', 'SimHei', sans-serif;">拼夕夕商城</span>
                         </a>
