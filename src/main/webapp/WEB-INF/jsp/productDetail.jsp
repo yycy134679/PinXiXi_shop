@@ -109,11 +109,17 @@
             <!-- 右侧信息区域 -->
             <div class="col-md-7">
                 <h1 class="mb-3">${product.name}</h1>
+                <div class="mt-2 mb-3" style="font-size: 1.1rem;">
+                        ${product.description}
+                </div>
+                <p class="h3 text-danger mb-2">¥
+                    <fmt:formatNumber value="${product.price}" type="number" minFractionDigits="2" maxFractionDigits="2"/>
+                </p>
+
                 <p class="h3 text-danger mb-2">¥
                     <fmt:formatNumber value="${product.price}" type="number" minFractionDigits="2" maxFractionDigits="2"/>
                 </p>
                 <p class="text-muted">销量: ${product.salesVolume}</p>
-                <div class="mt-3 mb-4" style="min-height: 80px;">${product.description}</div>
                 <!-- 用户操作区域 -->
                 <div class="d-flex align-items-center mb-3">
                     <label for="quantity" class="me-2">数量：</label>
