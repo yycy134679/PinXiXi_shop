@@ -116,9 +116,6 @@
                     <fmt:formatNumber value="${product.price}" type="number" minFractionDigits="2" maxFractionDigits="2"/>
                 </p>
 
-                <p class="h3 text-danger mb-2">¥
-                    <fmt:formatNumber value="${product.price}" type="number" minFractionDigits="2" maxFractionDigits="2"/>
-                </p>
                 <p class="text-muted">销量: ${product.salesVolume}</p>
                 <!-- 用户操作区域 -->
                 <div class="d-flex align-items-center mb-3">
