@@ -13,11 +13,13 @@ public class CharacterEncodingFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
+        System.out.println("--- CharacterEncodingFilter init START ---");
         // 可以从 filterConfig 中获取初始化参数来设置编码，如果需要的话
         // String configEncoding = filterConfig.getInitParameter("encoding");
         // if (configEncoding != null) {
         // this.encoding = configEncoding;
         // }
+        System.out.println("--- CharacterEncodingFilter init END ---");
     }
 
     @Override

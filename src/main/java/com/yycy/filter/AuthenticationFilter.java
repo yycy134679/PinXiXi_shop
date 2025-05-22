@@ -26,12 +26,14 @@ public class AuthenticationFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
+        System.out.println("--- AuthenticationFilter init START ---");
         // 初始化受保护路径 (示例，需要根据实际情况调整)
         protectedPaths = new HashSet<>(Arrays.asList(
                 "/profile",
                 "/cart",
                 "/checkout",
                 "/submitOrder"));
+        System.out.println("AuthenticationFilter - protectedPaths initialized: " + protectedPaths);
         // 初始化公共路径 (示例)
         publicPaths = new HashSet<>(Arrays.asList(
                 "/", // 根路径
@@ -42,15 +44,17 @@ public class AuthenticationFilter implements Filter {
                 "/logout",
                 "/productDetail",
                 "/validate"));
+        System.out.println("AuthenticationFilter - publicPaths initialized: " + publicPaths);
         // 初始化静态资源路径前缀 (示例)
         staticResourcePrefixes = new HashSet<>(Arrays.asList(
                 "/css/",
                 "/js/",
                 "/images/",
                 "/fonts/"));
-
-        Filter.super.init(filterConfig);
+        System.out.println("AuthenticationFilter - staticResourcePrefixes initialized: " + staticResourcePrefixes);
+        // Filter.super.init(filterConfig); // 不需要
         System.out.println("AuthenticationFilter initialized.");
+        System.out.println("--- AuthenticationFilter init END ---");
     }
 
     @Override
