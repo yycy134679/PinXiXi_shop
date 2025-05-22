@@ -18,7 +18,7 @@ public class CartServiceImpl implements ICartService {
 
     // 无参构造函数（可选，后续可直接 new ProductServiceImpl()）
     public CartServiceImpl() {
-        // this.productService = new ProductServiceImpl();
+        this.productService = new ProductServiceImpl();
     }
 
     // 构造函数注入 ProductService
@@ -40,24 +40,53 @@ public class CartServiceImpl implements ICartService {
 
     @Override
     public void addProductToCart(HttpSession session, int productId, int quantity) {
-        if (this.productService == null) {
-            throw new IllegalStateException("ProductService is not initialized in CartServiceImpl.");
+        if (quantity <= 0) {
+            return; // 不处理数量小于等于0的情况
         }
-        throw new UnsupportedOperationException("addProductToCart not implemented yet.");
+
+        // 获取购物车
+        Cart cart = getCart(session);
+
+        // 获取商品信息
+        Product product = productService.getProductById(productId);
+
+        // 如果商品存在，添加到购物车
+        if (product != null) {
+            cart.addItem(product, quantity);
+        }
     }
 
     @Override
     public void removeProductFromCart(HttpSession session, int productId) {
-        throw new UnsupportedOperationException("removeProductFromCart not implemented yet.");
+        // 获取购物车
+        Cart cart = getCart(session);
+
+        // 从购物车中移除指定商品
+        cart.removeItem(productId);
     }
 
     @Override
     public void updateProductQuantityInCart(HttpSession session, int productId, int newQuantity) {
-        throw new UnsupportedOperationException("updateProductQuantityInCart not implemented yet.");
+        // 确保数量大于0
+        if (newQuantity <= 0) {
+            // 数量小于等于0，直接移除商品
+            removeProductFromCart(session, productId);
+            return;
+        }
+
+        // 获取购物车
+        Cart cart = getCart(session);
+
+        // 更新购物车中指定商品的数量
+        cart.updateItemQuantity(productId, newQuantity);
     }
 
     @Override
     public void clearCart(HttpSession session) {
-        throw new UnsupportedOperationException("clearCart not implemented yet.");
+        // 获取购物车
+        Cart cart = getCart(session);
+
+        // 清空购物车
+        cart.clearCart();
     }
 }
