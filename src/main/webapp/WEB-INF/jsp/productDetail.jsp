@@ -36,6 +36,26 @@
                             .mini-nav-title {
                                 margin-top: 2.5rem;
                             }
+
+                            .thumbnail-container {
+                                display: flex;
+                                margin-top: 10px;
+                                justify-content: center;
+                            }
+
+                            .thumbnail {
+                                width: 60px;
+                                height: 60px;
+                                object-fit: cover;
+                                margin: 0 5px;
+                                border: 1px solid #ddd;
+                                cursor: pointer;
+                                border-radius: 4px;
+                            }
+
+                            .thumbnail.active {
+                                border: 2px solid #007bff;
+                            }
                         </style>
                     </head>
 
@@ -75,12 +95,48 @@
                         <c:if test="${not empty product}">
                             <div class="container product-detail-container">
                                 <div class="row">
-                                    <!-- 左侧图片区域 - 只展示主图 -->
+                                    <!-- 左侧图片区域 - 主图和缩略图 -->
                                     <div class="col-md-5 mb-4 mb-md-0">
-                                        <div class="mb-3 text-center">
-                                            <img src="${pageContext.request.contextPath}/${product.imageUrl}"
+                                        <div class="mb-2 text-center">
+                                            <img id="mainImage"
+                                                src="${pageContext.request.contextPath}/${product.imageUrl}"
                                                 class="img-fluid rounded shadow-sm" alt="${product.name}"
                                                 style="max-height: 350px; object-fit: contain; background: #f6f6f6;">
+                                        </div>
+                                        <!-- 缩略图区域 -->
+                                        <div class="thumbnail-container">
+                                            <!-- 主图缩略图 -->
+                                            <img class="thumbnail active"
+                                                src="${pageContext.request.contextPath}/${product.imageUrl}"
+                                                alt="${product.name}"
+                                                data-src="${pageContext.request.contextPath}/${product.imageUrl}">
+
+                                            <!-- 细节图1缩略图 -->
+                                            <c:set var="detailImage1"
+                                                value="${fn:replace(product.imageUrl, '.jpg', '_d1.jpg')}" />
+                                            <img class="thumbnail"
+                                                src="${pageContext.request.contextPath}/${detailImage1}"
+                                                alt="${product.name} 细节图1"
+                                                data-src="${pageContext.request.contextPath}/${detailImage1}"
+                                                onerror="this.style.display='none'">
+
+                                            <!-- 细节图2缩略图 -->
+                                            <c:set var="detailImage2"
+                                                value="${fn:replace(product.imageUrl, '.jpg', '_d2.jpg')}" />
+                                            <img class="thumbnail"
+                                                src="${pageContext.request.contextPath}/${detailImage2}"
+                                                alt="${product.name} 细节图2"
+                                                data-src="${pageContext.request.contextPath}/${detailImage2}"
+                                                onerror="this.style.display='none'">
+
+                                            <!-- 细节图3缩略图 -->
+                                            <c:set var="detailImage3"
+                                                value="${fn:replace(product.imageUrl, '.jpg', '_d3.jpg')}" />
+                                            <img class="thumbnail"
+                                                src="${pageContext.request.contextPath}/${detailImage3}"
+                                                alt="${product.name} 细节图3"
+                                                data-src="${pageContext.request.contextPath}/${detailImage3}"
+                                                onerror="this.style.display='none'">
                                         </div>
                                     </div>
                                     <!-- 右侧信息区域 -->
@@ -220,6 +276,27 @@
                                     window.location.href = url;
                                 };
                             }
+
+                            // 图片缩略图切换逻辑
+                            document.addEventListener('DOMContentLoaded', function () {
+                                var thumbnails = document.querySelectorAll('.thumbnail');
+                                var mainImage = document.getElementById('mainImage');
+
+                                thumbnails.forEach(function (thumbnail) {
+                                    thumbnail.addEventListener('click', function () {
+                                        // 移除所有缩略图的active类
+                                        thumbnails.forEach(function (thumb) {
+                                            thumb.classList.remove('active');
+                                        });
+
+                                        // 添加active类到当前点击的缩略图
+                                        this.classList.add('active');
+
+                                        // 更新主图
+                                        mainImage.src = this.getAttribute('data-src');
+                                    });
+                                });
+                            });
                         </script>
                     </body>
 
