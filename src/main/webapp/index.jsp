@@ -4,6 +4,8 @@
 
     <head>
         <title>JSP - Hello World</title>
+        <!-- 防止浏览器请求默认favicon.ico -->
+        <link rel="icon" href="data:,">
     </head>
 
     <body>

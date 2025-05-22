@@ -28,6 +28,8 @@ public class LoginServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
+        System.out.println("LoginServlet: 处理登录请求 - 用户名: " + username);
+
         // 后端校验
         if (username == null || username.trim().isEmpty() || password == null || password.trim().isEmpty()) {
             request.setAttribute("errorMessage", "用户名和密码不能为空");
@@ -40,8 +42,17 @@ public class LoginServlet extends HttpServlet {
         if (loggedInUser != null) {
             HttpSession session = request.getSession();
             session.setAttribute("loggedInUser", loggedInUser);
+
             // 登录后重定向
             String redirectUrl = (String) session.getAttribute("redirectUrlAfterLogin");
+            System.out.println("LoginServlet: 登录成功 - 用户: " + username + ", 重定向URL: " + redirectUrl);
+
+            // 检查重定向URL是否是favicon.ico，如果是则直接跳转到首页
+            if (redirectUrl != null && redirectUrl.contains("favicon.ico")) {
+                System.out.println("LoginServlet: 检测到favicon.ico请求，忽略并重定向到首页");
+                redirectUrl = null;
+            }
+
             if (redirectUrl != null) {
                 session.removeAttribute("redirectUrlAfterLogin");
                 response.sendRedirect(redirectUrl);

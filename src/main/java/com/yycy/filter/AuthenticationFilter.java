@@ -43,7 +43,8 @@ public class AuthenticationFilter implements Filter {
                 "/register",
                 "/logout",
                 "/productDetail",
-                "/validate"));
+                "/validate",
+                "/favicon.ico")); // 添加favicon.ico到公共路径
         System.out.println("AuthenticationFilter - publicPaths initialized: " + publicPaths);
         // 初始化静态资源路径前缀 (示例)
         staticResourcePrefixes = new HashSet<>(Arrays.asList(
@@ -64,6 +65,9 @@ public class AuthenticationFilter implements Filter {
         HttpServletResponse res = (HttpServletResponse) response;
         HttpSession session = req.getSession(false);
         String servletPath = req.getServletPath();
+
+        // 记录当前请求路径（调试用）
+        System.out.println("AuthenticationFilter processing request for: " + servletPath);
 
         // 1. 静态资源直接放行
         for (String prefix : staticResourcePrefixes) {
