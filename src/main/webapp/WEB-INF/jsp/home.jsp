@@ -186,9 +186,9 @@
                                             <a class="nav-link" href="${pageContext.request.contextPath}/cart">
                                                 <i class="bi bi-cart-fill"></i> 购物车
                                                 <c:if
-                                                    test="${not empty sessionScope.cart && sessionScope.cart.totalItemsCount > 0}">
+                                                    test="${not empty sessionScope.shoppingCart && sessionScope.shoppingCart.totalItemsCount > 0}">
                                                     <span
-                                                        class="badge bg-danger ms-1">${sessionScope.cart.totalItemsCount}</span>
+                                                        class="badge bg-danger ms-1">${sessionScope.shoppingCart.totalItemsCount}</span>
                                                 </c:if>
                                             </a>
                                         </li>
