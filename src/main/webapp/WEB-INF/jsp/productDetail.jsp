@@ -3,41 +3,41 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<% try {
-    System.out.println("\n==========productDetail.jsp is executing!==========");
-    System.out.println(" JSP - Request URI: " + request.getRequestURI());
-    System.out.println(" JSP - Context Path: " + request.getContextPath());
-    System.out.println(" JSP - Servlet Path: " + request.getServletPath());
-    System.out.println(" JSP - Request Method: " + request.getMethod());
+<%--<% try {--%>
+<%--    System.out.println("\n==========productDetail.jsp is executing!==========");--%>
+<%--    System.out.println(" JSP - Request URI: " + request.getRequestURI());--%>
+<%--    System.out.println(" JSP - Context Path: " + request.getContextPath());--%>
+<%--    System.out.println(" JSP - Servlet Path: " + request.getServletPath());--%>
+<%--    System.out.println(" JSP - Request Method: " + request.getMethod());--%>
 
-    Object productObj = request.getAttribute("product");
-    System.out.println("JSP - Product object: " + (productObj != null ? "exists" : "null"));
-    if (productObj != null && productObj instanceof com.yycy.entity.Product) {
-        com.yycy.entity.Product product = (com.yycy.entity.Product) productObj;
-        System.out.println(" JSP - Product details - Name: " + product.getName());
-        System.out.println(" JSP - Product details - ID: " + product.getId());
-        System.out.println(" JSP - Product details - Price: " + product.getPrice());
-        System.out.println(" JSP - Product details - ImageUrl: " + product.getImageUrl());
-    } else if (productObj == null) {
-        System.err.println(" JSP - CRITICAL: Product object is NULL in scriptlet!");
-    } else {
-        System.err.println("JSP - CRITICAL: product attribute is not of type com.yycy.entity.Product!");
-    }
-    Object navObj = request.getAttribute("allProductsForNav");
-    System.out.println(" JSP - allProductsForNav: " + (navObj != null ? " exists" : "null"));
-    if (navObj != null && navObj instanceof java.util.List) {
-        java.util.List<?> navList = (java.util.List<?>) navObj;
-        System.out.println(" JSP - Navigation products count: " + navList.size());
-    } else if (navObj == null) {
-        System.err.println("JSP - CRITICAL: allProductsForNav is NULL in scriptlet!");
-    } else {
-        System.err.println("JSP - CRITICAL: allProductsForNav is not a List in scriptlet!");
-    }
-} catch (Exception e) {
-    System.err.println("JSP - ERROR in top scriptlet of productDetail.jsp:");
-    e.printStackTrace(System.err);
-}
-%>
+<%--    Object productObj = request.getAttribute("product");--%>
+<%--    System.out.println("JSP - Product object: " + (productObj != null ? "exists" : "null"));--%>
+<%--    if (productObj != null && productObj instanceof com.yycy.entity.Product) {--%>
+<%--        com.yycy.entity.Product product = (com.yycy.entity.Product) productObj;--%>
+<%--        System.out.println(" JSP - Product details - Name: " + product.getName());--%>
+<%--        System.out.println(" JSP - Product details - ID: " + product.getId());--%>
+<%--        System.out.println(" JSP - Product details - Price: " + product.getPrice());--%>
+<%--        System.out.println(" JSP - Product details - ImageUrl: " + product.getImageUrl());--%>
+<%--    } else if (productObj == null) {--%>
+<%--        System.err.println(" JSP - CRITICAL: Product object is NULL in scriptlet!");--%>
+<%--    } else {--%>
+<%--        System.err.println("JSP - CRITICAL: product attribute is not of type com.yycy.entity.Product!");--%>
+<%--    }--%>
+<%--    Object navObj = request.getAttribute("allProductsForNav");--%>
+<%--    System.out.println(" JSP - allProductsForNav: " + (navObj != null ? " exists" : "null"));--%>
+<%--    if (navObj != null && navObj instanceof java.util.List) {--%>
+<%--        java.util.List<?> navList = (java.util.List<?>) navObj;--%>
+<%--        System.out.println(" JSP - Navigation products count: " + navList.size());--%>
+<%--    } else if (navObj == null) {--%>
+<%--        System.err.println("JSP - CRITICAL: allProductsForNav is NULL in scriptlet!");--%>
+<%--    } else {--%>
+<%--        System.err.println("JSP - CRITICAL: allProductsForNav is not a List in scriptlet!");--%>
+<%--    }--%>
+<%--} catch (Exception e) {--%>
+<%--    System.err.println("JSP - ERROR in top scriptlet of productDetail.jsp:");--%>
+<%--    e.printStackTrace(System.err);--%>
+<%--}--%>
+<%--%>--%>
 
 <!-- 设置页面标题 -->
 <c:set var="pageTitle" value="${not empty product ? product.name : '商品详情'} - PinXiXi 商城" scope="request"/>
