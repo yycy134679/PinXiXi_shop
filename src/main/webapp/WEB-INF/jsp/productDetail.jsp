@@ -23,127 +23,60 @@
                         <link rel="stylesheet"
                             href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
                         <style>
+                            /* 全局变量定义 */
+                            :root {
+                                --primary-red: #ff4757;
+                                --primary-orange: #ffa502;
+                                --success-green: #2ed573;
+                                --info-blue: #3742fa;
+                                --dark-gray: #2f3542;
+                                --light-gray: #f1f2f6;
+                                --warm-white: #ffffff;
+                                --shadow-light: 0 4px 20px rgba(0, 0, 0, 0.08);
+                                --shadow-medium: 0 8px 30px rgba(0, 0, 0, 0.12);
+                                --border-radius: 12px;
+                                --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                            }
+
+                            /* 页面整体样式 */
                             body {
-                                background: #f8f9fa;
+                                background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+                                font-family: 'Microsoft YaHei', '微软雅黑', sans-serif;
+                                min-height: 100vh;
                             }
 
-                            .product-detail-container {
-                                background: #fff;
-                                border-radius: 8px;
-                                box-shadow: 0 2px 8px #0001;
-                                padding: 2rem 2rem 1.5rem 2rem;
-                                margin-top: 2rem;
-                            }
-
-                            .mini-nav-title {
-                                margin-top: 1.5rem;
-                                margin-bottom: 1rem;
-                            }
-
-                            .thumbnail-container {
-                                display: flex;
-                                margin-top: 10px;
-                                justify-content: center;
-                            }
-
-                            .thumbnail {
-                                width: 80px;
-                                height: 80px;
-                                object-fit: cover;
-                                margin: 0 5px;
-                                border: 1px solid #ddd;
-                                cursor: pointer;
-                                border-radius: 4px;
-                            }
-
-                            .thumbnail.active {
-                                border: 2px solid #007bff;
-                            }
-
-                            /* 加大商品图片展示区域 */
-                            .product-main-image {
-                                max-height: 450px !important;
-                                width: 100%;
-                                object-fit: contain;
-                                background: #f6f6f6;
-                                transition: all 0.3s ease;
-                            }
-
-                            /* 商品推荐区域样式优化 */
-                            .product-recommend-item {
-                                transition: all 0.2s ease;
-                                border-radius: 6px;
-                                overflow: hidden;
-                            }
-
-                            .product-recommend-item:hover {
-                                transform: translateY(-3px);
-                                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-                            }
-
-                            /* 商品推荐区样式 */
-                            .recommend-section {
-                                margin: 1rem 0;
-                                padding: 0.8rem 0;
-                                border-top: 1px dashed #ddd;
-                                border-bottom: 1px dashed #ddd;
-                            }
-
-                            /* 操作区样式 */
-                            .action-area {
-                                display: flex;
-                                align-items: center;
-                                flex-wrap: wrap;
-                            }
-
-                            .quantity-selector {
-                                margin-right: 15px;
-                            }
-
-                            @media (max-width: 767px) {
-                                .action-area {
-                                    flex-direction: column;
-                                    align-items: flex-start;
-                                }
-
-                                .quantity-selector {
-                                    margin-bottom: 15px;
-                                }
-                            }
-
-                            /* 导航栏样式 - 从home.jsp复制 */
-                            .navbar-brand-text {
-                                font-size: 2rem;
-                                font-weight: bold;
-                                vertical-align: middle;
-                                font-family: 'KaiTi', 'SimSun', sans-serif;
-                                color: #D23F31;
-                                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-                            }
-
+                            /* 导航栏样式 - 与首页保持一致 */
                             .navbar {
+                                background: linear-gradient(135deg, #ff4757 0%, #ff3742 100%) !important;
+                                box-shadow: 0 2px 20px rgba(255, 71, 87, 0.3);
+                                border: none;
                                 padding-top: 0.8rem;
                                 padding-bottom: 0.8rem;
                             }
 
-                            .navbar-brand img {
-                                margin-top: -0.25rem;
+                            .navbar-brand-text {
+                                color: white !important;
+                                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+                                font-family: 'Arial Black', 'FZYaoti', 'FZCuHeiSongS-B-GB', 'FZShuTi', 'STHeiti', 'SimHei', sans-serif;
+                                font-size: 2.8rem;
+                                font-weight: 900;
+                                letter-spacing: 0.08em;
                             }
 
                             .navbar-nav .nav-link {
+                                color: white !important;
                                 font-size: 1.35rem;
                                 font-weight: 600;
                                 padding-left: 1.2rem;
                                 padding-right: 1.2rem;
-                                color: #444 !important;
                                 letter-spacing: 0.03em;
-                                transition: color 0.2s;
+                                transition: var(--transition);
                             }
 
                             .navbar-nav .nav-link:hover,
                             .navbar-nav .nav-link:focus {
-                                color: #ff4d4f !important;
-                                text-shadow: 0 1px 0 #fff2f0;
+                                color: #ffeaa7 !important;
+                                transform: translateY(-1px);
                             }
 
                             .navbar-nav .nav-item .bi {
@@ -157,7 +90,30 @@
                                 padding: 0.4em 0.7em;
                             }
 
-                            /* 购物车角标优化样式 */
+                            /* 搜索框样式 */
+                            .navbar form input.form-control {
+                                border-radius: 25px;
+                                border: 2px solid rgba(255, 255, 255, 0.3);
+                                background: rgba(255, 255, 255, 0.9);
+                                padding: 10px 20px;
+                                font-size: 14px;
+                            }
+
+                            .navbar form input.form-control:focus {
+                                border-color: var(--primary-orange);
+                                box-shadow: 0 0 0 3px rgba(255, 165, 2, 0.2);
+                                background: white;
+                            }
+
+                            .navbar form button {
+                                border-radius: 25px;
+                                background: var(--primary-orange);
+                                border: none;
+                                padding: 10px 20px;
+                                font-weight: 600;
+                            }
+
+                            /* 购物车角标样式 */
                             .cart-link {
                                 position: relative;
                                 display: inline-block;
@@ -167,7 +123,7 @@
                                 position: absolute;
                                 top: -8px;
                                 right: -8px;
-                                background-color: #dc3545;
+                                background: linear-gradient(135deg, var(--primary-orange), #ff6348);
                                 color: white;
                                 border-radius: 50%;
                                 width: 20px;
@@ -182,6 +138,21 @@
                                 padding: 0;
                                 border: 2px solid white;
                                 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+                                animation: pulse 2s infinite;
+                            }
+
+                            @keyframes pulse {
+                                0% {
+                                    transform: scale(1);
+                                }
+
+                                50% {
+                                    transform: scale(1.1);
+                                }
+
+                                100% {
+                                    transform: scale(1);
+                                }
                             }
 
                             .cart-badge.large-number {
@@ -191,32 +162,379 @@
                                 font-size: 11px;
                             }
 
-                            /* 页脚样式 - 从home.jsp复制 */
+                            /* 商品详情容器 */
+                            .product-detail-container {
+                                background: white;
+                                border-radius: var(--border-radius);
+                                box-shadow: var(--shadow-medium);
+                                padding: 40px;
+                                margin: 30px auto;
+                                max-width: 1200px;
+                                position: relative;
+                                overflow: hidden;
+                            }
+
+                            .product-detail-container::before {
+                                content: '';
+                                position: absolute;
+                                top: 0;
+                                left: 0;
+                                right: 0;
+                                height: 4px;
+                                background: linear-gradient(90deg, var(--primary-red), var(--primary-orange));
+                            }
+
+                            /* 图片展示区域 */
+                            .product-image-section {
+                                position: relative;
+                                background: #fafafa;
+                                border-radius: var(--border-radius);
+                                padding: 20px;
+                                box-shadow: var(--shadow-light);
+                            }
+
+                            .product-main-image {
+                                max-height: 500px !important;
+                                width: 100%;
+                                object-fit: contain;
+                                border-radius: 8px;
+                                transition: all 0.4s ease;
+                                background: white;
+                                padding: 10px;
+                            }
+
+                            .product-main-image:hover {
+                                transform: scale(1.05);
+                            }
+
+                            /* 缩略图容器 */
+                            .thumbnail-container {
+                                display: flex;
+                                justify-content: center;
+                                margin-top: 20px;
+                                gap: 10px;
+                                flex-wrap: wrap;
+                            }
+
+                            .thumbnail {
+                                width: 80px;
+                                height: 80px;
+                                object-fit: cover;
+                                border: 3px solid #e0e0e0;
+                                cursor: pointer;
+                                border-radius: 8px;
+                                transition: var(--transition);
+                                background: white;
+                                padding: 5px;
+                            }
+
+                            .thumbnail:hover {
+                                border-color: var(--primary-orange);
+                                transform: translateY(-2px);
+                                box-shadow: 0 4px 12px rgba(255, 165, 2, 0.3);
+                            }
+
+                            .thumbnail.active {
+                                border-color: var(--primary-red);
+                                box-shadow: 0 4px 15px rgba(255, 71, 87, 0.4);
+                                transform: scale(1.1);
+                            }
+
+                            /* 商品信息区域 */
+                            .product-info-section {
+                                padding-left: 30px;
+                            }
+
+                            .product-title {
+                                font-size: 2rem;
+                                font-weight: 700;
+                                color: var(--dark-gray);
+                                margin-bottom: 15px;
+                                line-height: 1.3;
+                            }
+
+                            .product-description {
+                                font-size: 1.1rem;
+                                color: #666;
+                                line-height: 1.6;
+                                margin-bottom: 20px;
+                                padding: 15px;
+                                background: #f8f9fa;
+                                border-radius: 8px;
+                                border-left: 4px solid var(--primary-orange);
+                            }
+
+                            /* 特色标签 */
+                            .feature-badges {
+                                display: flex;
+                                gap: 10px;
+                                margin: 20px 0;
+                                flex-wrap: wrap;
+                            }
+
+                            .feature-badge {
+                                background: linear-gradient(135deg, #667eea, #764ba2);
+                                color: white;
+                                padding: 5px 12px;
+                                border-radius: 15px;
+                                font-size: 0.8rem;
+                                font-weight: 600;
+                            }
+
+                            /* 价格展示 */
+                            .price-section {
+                                background: linear-gradient(135deg, #fff5f5 0%, #ffe8e8 100%);
+                                padding: 20px;
+                                border-radius: 12px;
+                                margin: 20px 0;
+                                border: 2px solid rgba(255, 71, 87, 0.1);
+                            }
+
+                            .current-price {
+                                font-size: 2.5rem;
+                                font-weight: 900;
+                                color: var(--primary-red);
+                                text-shadow: 1px 1px 2px rgba(255, 71, 87, 0.2);
+                            }
+
+                            .price-currency {
+                                font-size: 1.5rem;
+                                vertical-align: top;
+                                margin-right: 5px;
+                            }
+
+                            /* 销量信息 */
+                            .sales-info {
+                                display: inline-block;
+                                background: var(--light-gray);
+                                color: var(--dark-gray);
+                                padding: 8px 15px;
+                                border-radius: 20px;
+                                font-size: 0.9rem;
+                                font-weight: 600;
+                                margin-top: 10px;
+                            }
+
+                            .sales-info i {
+                                color: var(--primary-orange);
+                                margin-right: 5px;
+                            }
+
+                            /* 推荐区域 */
+                            .recommend-section {
+                                background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+                                border-radius: 12px;
+                                padding: 25px;
+                                margin: 30px 0;
+                                border: none;
+                                box-shadow: var(--shadow-light);
+                            }
+
+                            .recommend-title {
+                                font-size: 1.3rem;
+                                font-weight: 700;
+                                color: var(--dark-gray);
+                                margin-bottom: 20px;
+                                display: flex;
+                                align-items: center;
+                            }
+
+                            .recommend-title i {
+                                color: var(--primary-orange);
+                                margin-right: 10px;
+                                font-size: 1.5rem;
+                            }
+
+                            .product-recommend-item {
+                                border: none;
+                                border-radius: 10px;
+                                transition: var(--transition);
+                                overflow: hidden;
+                                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+                                background: white;
+                            }
+
+                            .product-recommend-item:hover {
+                                transform: translateY(-5px);
+                                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+                            }
+
+                            .product-recommend-item .card-img-top {
+                                transition: transform 0.3s ease;
+                            }
+
+                            .product-recommend-item:hover .card-img-top {
+                                transform: scale(1.1);
+                            }
+
+                            /* 操作区域 */
+                            .action-area {
+                                background: white;
+                                padding: 30px;
+                                border-radius: 12px;
+                                box-shadow: var(--shadow-light);
+                                margin-top: 30px;
+                                border: 1px solid #f0f0f0;
+                            }
+
+                            /* 数量选择器 */
+                            .quantity-selector {
+                                margin-bottom: 20px;
+                            }
+
+                            .quantity-label {
+                                font-weight: 600;
+                                color: var(--dark-gray);
+                                margin-bottom: 10px;
+                                display: block;
+                            }
+
+                            .quantity-controls {
+                                display: flex;
+                                align-items: center;
+                                border: 2px solid #e0e0e0;
+                                border-radius: 25px;
+                                overflow: hidden;
+                                width: fit-content;
+                                background: white;
+                            }
+
+                            .quantity-controls button {
+                                border: none;
+                                background: #f8f9fa;
+                                width: 40px;
+                                height: 40px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                font-weight: bold;
+                                color: var(--dark-gray);
+                                transition: var(--transition);
+                            }
+
+                            .quantity-controls button:hover {
+                                background: var(--primary-orange);
+                                color: white;
+                            }
+
+                            .quantity-controls input {
+                                border: none;
+                                width: 60px;
+                                height: 40px;
+                                text-align: center;
+                                font-weight: 600;
+                                background: white;
+                            }
+
+                            .quantity-controls input:focus {
+                                outline: none;
+                                box-shadow: none;
+                            }
+
+                            /* 按钮组 */
+                            .button-group {
+                                display: flex;
+                                gap: 15px;
+                                flex-wrap: wrap;
+                            }
+
+                            .action-btn {
+                                padding: 12px 30px;
+                                border-radius: 25px;
+                                font-weight: 600;
+                                font-size: 1.1rem;
+                                border: none;
+                                transition: var(--transition);
+                                display: flex;
+                                align-items: center;
+                                gap: 8px;
+                                text-decoration: none;
+                                min-width: 160px;
+                                justify-content: center;
+                            }
+
+                            .btn-add-cart {
+                                background: linear-gradient(135deg, var(--primary-red), var(--primary-orange));
+                                color: white;
+                                box-shadow: 0 4px 15px rgba(255, 71, 87, 0.3);
+                            }
+
+                            .btn-add-cart:hover {
+                                transform: translateY(-2px);
+                                box-shadow: 0 6px 20px rgba(255, 71, 87, 0.4);
+                                color: white;
+                            }
+
+                            .btn-buy-now {
+                                background: linear-gradient(135deg, var(--success-green), #20bf6b);
+                                color: white;
+                                box-shadow: 0 4px 15px rgba(46, 213, 115, 0.3);
+                            }
+
+                            .btn-buy-now:hover {
+                                transform: translateY(-2px);
+                                box-shadow: 0 6px 20px rgba(46, 213, 115, 0.4);
+                                color: white;
+                            }
+
+                            /* 页脚样式 - 与首页保持一致 */
                             .custom-footer {
-                                background: #f8f9fb;
-                                border-top: 1px solid #eee;
+                                background: linear-gradient(135deg, #2f3542 0%, #40407a 100%);
+                                color: white;
+                                border-top: none;
+                                margin-top: 60px;
                             }
 
                             .footer-icon {
+                                color: var(--primary-orange) !important;
                                 font-size: 2.2rem;
+                                margin-bottom: 15px;
                             }
 
                             .footer-text {
+                                color: #ddd;
                                 font-size: 1.08rem;
-                                color: #333;
                                 font-weight: 500;
                                 letter-spacing: 0.01em;
+                            }
+
+                            /* 响应式设计 */
+                            @media (max-width: 768px) {
+                                .product-detail-container {
+                                    padding: 20px;
+                                    margin: 15px;
+                                }
+
+                                .product-info-section {
+                                    padding-left: 0;
+                                    margin-top: 30px;
+                                }
+
+                                .current-price {
+                                    font-size: 2rem;
+                                }
+
+                                .button-group {
+                                    flex-direction: column;
+                                }
+
+                                .action-btn {
+                                    width: 100%;
+                                }
+
+                                .navbar-brand-text {
+                                    font-size: 1.5rem !important;
+                                }
                             }
                         </style>
                     </head>
 
                     <body>
-                        <!-- 导航栏 - 使用与home.jsp相同的样式 -->
+                        <!-- 导航栏 - 与首页保持完全一致 -->
                         <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
                             <div class="container">
                                 <a class="navbar-brand" href="${pageContext.request.contextPath}/home">
-                                    <span class="navbar-brand-text"
-                                        style="color: #ff7c7c; font-size: 2.8rem; font-weight: 900; letter-spacing: 0.08em; font-family: 'Arial Black', 'FZYaoti', 'FZCuHeiSongS-B-GB', 'FZShuTi', 'STHeiti', 'SimHei', sans-serif;">拼夕夕商城</span>
+                                    <span class="navbar-brand-text">拼夕夕商城</span>
                                 </a>
                                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
@@ -299,6 +617,7 @@
                             </div>
                         </nav>
 
+                        <!-- 商品不存在提示 -->
                         <c:if test="${empty product}">
                             <div class="container alert alert-danger">
                                 <h3>商品信息不存在或已下架</h3>
@@ -307,70 +626,90 @@
                             </div>
                         </c:if>
 
+                        <!-- 商品详情内容 -->
                         <c:if test="${not empty product}">
                             <div class="container-fluid product-detail-container">
                                 <div class="row">
-                                    <!-- 左侧图片区域 - 主图和缩略图 -->
+                                    <!-- 左侧图片区域 -->
                                     <div class="col-md-6 mb-4 mb-md-0">
-                                        <div class="mb-2 text-center">
-                                            <img id="mainImage"
-                                                src="${pageContext.request.contextPath}/${product.imageUrl}"
-                                                class="img-fluid rounded shadow-sm product-main-image"
-                                                alt="${product.name}">
-                                        </div>
-                                        <!-- 缩略图区域 -->
-                                        <div class="thumbnail-container">
-                                            <!-- 主图缩略图 -->
-                                            <img class="thumbnail active"
-                                                src="${pageContext.request.contextPath}/${product.imageUrl}"
-                                                alt="${product.name}"
-                                                data-src="${pageContext.request.contextPath}/${product.imageUrl}">
+                                        <div class="product-image-section">
+                                            <div class="mb-2 text-center">
+                                                <img id="mainImage"
+                                                    src="${pageContext.request.contextPath}/${product.imageUrl}"
+                                                    class="img-fluid rounded shadow-sm product-main-image"
+                                                    alt="${product.name}">
+                                            </div>
+                                            <!-- 缩略图区域 -->
+                                            <div class="thumbnail-container">
+                                                <!-- 主图缩略图 -->
+                                                <img class="thumbnail active"
+                                                    src="${pageContext.request.contextPath}/${product.imageUrl}"
+                                                    alt="${product.name}"
+                                                    data-src="${pageContext.request.contextPath}/${product.imageUrl}">
 
-                                            <!-- 细节图1缩略图 -->
-                                            <c:set var="detailImage1"
-                                                value="${fn:replace(product.imageUrl, '.jpg', '_d1.jpg')}" />
-                                            <img class="thumbnail"
-                                                src="${pageContext.request.contextPath}/${detailImage1}"
-                                                alt="${product.name} 细节图1"
-                                                data-src="${pageContext.request.contextPath}/${detailImage1}"
-                                                onerror="this.style.display='none'">
+                                                <!-- 细节图1缩略图 -->
+                                                <c:set var="detailImage1"
+                                                    value="${fn:replace(product.imageUrl, '.jpg', '_d1.jpg')}" />
+                                                <img class="thumbnail"
+                                                    src="${pageContext.request.contextPath}/${detailImage1}"
+                                                    alt="${product.name} 细节图1"
+                                                    data-src="${pageContext.request.contextPath}/${detailImage1}"
+                                                    onerror="this.style.display='none'">
 
-                                            <!-- 细节图2缩略图 -->
-                                            <c:set var="detailImage2"
-                                                value="${fn:replace(product.imageUrl, '.jpg', '_d2.jpg')}" />
-                                            <img class="thumbnail"
-                                                src="${pageContext.request.contextPath}/${detailImage2}"
-                                                alt="${product.name} 细节图2"
-                                                data-src="${pageContext.request.contextPath}/${detailImage2}"
-                                                onerror="this.style.display='none'">
+                                                <!-- 细节图2缩略图 -->
+                                                <c:set var="detailImage2"
+                                                    value="${fn:replace(product.imageUrl, '.jpg', '_d2.jpg')}" />
+                                                <img class="thumbnail"
+                                                    src="${pageContext.request.contextPath}/${detailImage2}"
+                                                    alt="${product.name} 细节图2"
+                                                    data-src="${pageContext.request.contextPath}/${detailImage2}"
+                                                    onerror="this.style.display='none'">
 
-                                            <!-- 细节图3缩略图 -->
-                                            <c:set var="detailImage3"
-                                                value="${fn:replace(product.imageUrl, '.jpg', '_d3.jpg')}" />
-                                            <img class="thumbnail"
-                                                src="${pageContext.request.contextPath}/${detailImage3}"
-                                                alt="${product.name} 细节图3"
-                                                data-src="${pageContext.request.contextPath}/${detailImage3}"
-                                                onerror="this.style.display='none'">
+                                                <!-- 细节图3缩略图 -->
+                                                <c:set var="detailImage3"
+                                                    value="${fn:replace(product.imageUrl, '.jpg', '_d3.jpg')}" />
+                                                <img class="thumbnail"
+                                                    src="${pageContext.request.contextPath}/${detailImage3}"
+                                                    alt="${product.name} 细节图3"
+                                                    data-src="${pageContext.request.contextPath}/${detailImage3}"
+                                                    onerror="this.style.display='none'">
+                                            </div>
                                         </div>
                                     </div>
+
                                     <!-- 右侧信息区域 -->
-                                    <div class="col-md-6">
-                                        <h1 class="mb-3">${product.name}</h1>
-                                        <div class="mt-2 mb-3" style="font-size: 1.1rem;">
+                                    <div class="col-md-6 product-info-section">
+                                        <h1 class="product-title">${product.name}</h1>
+
+                                        <!-- 特色标签 -->
+                                        <div class="feature-badges">
+                                            <span class="feature-badge">正品保证</span>
+                                            <span class="feature-badge">快速发货</span>
+                                            <span class="feature-badge">7天退换</span>
+                                        </div>
+
+                                        <div class="product-description">
                                             ${product.description}
                                         </div>
-                                        <p class="h3 text-danger mb-2">¥
-                                            <fmt:formatNumber value="${product.price}" type="number"
-                                                minFractionDigits="2" maxFractionDigits="2" />
-                                        </p>
 
-                                        <p class="text-muted">销量: ${product.salesVolume}</p>
+                                        <!-- 价格区域 -->
+                                        <div class="price-section">
+                                            <div class="current-price">
+                                                <span class="price-currency">¥</span>
+                                                <fmt:formatNumber value="${product.price}" type="number"
+                                                    minFractionDigits="2" maxFractionDigits="2" />
+                                            </div>
+                                            <div class="sales-info">
+                                                <i class="bi bi-graph-up"></i>已售 ${product.salesVolume} 件
+                                            </div>
+                                        </div>
 
-                                        <!-- 迷你商品导航列表 -->
+                                        <!-- 商品推荐区域 -->
                                         <c:if test="${not empty allProductsForNav}">
                                             <div class="recommend-section">
-                                                <h5 class="mb-3"><i class="bi bi-grid-3x3-gap-fill"></i> 其他商品推荐</h5>
+                                                <h5 class="recommend-title">
+                                                    <i class="bi bi-grid-3x3-gap-fill"></i>其他商品推荐
+                                                </h5>
                                                 <div class="row">
                                                     <c:forEach var="navProd" items="${allProductsForNav}"
                                                         varStatus="status">
@@ -402,26 +741,22 @@
                                             </div>
                                         </c:if>
 
-                                        <!-- 用户操作区域 -->
+                                        <!-- 操作区域 -->
                                         <div class="action-area">
-                                            <div class="quantity-selector d-flex align-items-center">
-                                                <label for="quantity" class="me-2">数量：</label>
-                                                <div class="input-group" style="width: 120px;">
-                                                    <button class="btn btn-outline-secondary" type="button"
-                                                        id="decreaseQty">-</button>
-                                                    <input type="number" class="form-control text-center" id="quantity"
-                                                        name="quantity" value="1" min="1" max="99"
-                                                        style="max-width: 60px;">
-                                                    <button class="btn btn-outline-secondary" type="button"
-                                                        id="increaseQty">+</button>
+                                            <div class="quantity-selector">
+                                                <label class="quantity-label">选择数量：</label>
+                                                <div class="quantity-controls">
+                                                    <button type="button" id="decreaseQty">-</button>
+                                                    <input type="number" id="quantity" value="1" min="1" max="99">
+                                                    <button type="button" id="increaseQty">+</button>
                                                 </div>
                                             </div>
 
-                                            <div>
-                                                <a href="#" id="addToCartBtn" class="btn btn-primary me-2">
+                                            <div class="button-group">
+                                                <a href="#" id="addToCartBtn" class="action-btn btn-add-cart">
                                                     <i class="bi bi-cart-plus"></i> 加入购物车
                                                 </a>
-                                                <a href="#" id="buyNowBtn" class="btn btn-success">
+                                                <a href="#" id="buyNowBtn" class="action-btn btn-buy-now">
                                                     <i class="bi bi-bag-check"></i> 立即购买
                                                 </a>
                                             </div>
@@ -431,32 +766,26 @@
                             </div>
                         </c:if>
 
-                        <!-- 页脚 - 使用与home.jsp相同的样式 -->
+                        <!-- 页脚 - 与首页保持完全一致 -->
                         <footer class="custom-footer mt-auto py-4">
                             <div class="container">
                                 <div class="row justify-content-center text-center">
                                     <div class="col-6 col-md-3 mb-3 mb-md-0">
-                                        <div class="footer-icon text-danger mb-2" style="font-size:2.2rem;"><i
-                                                class="bi bi-layers"></i>
-                                        </div>
+                                        <div class="footer-icon text-danger mb-2"><i class="bi bi-layers"></i></div>
                                         <div class="footer-text">品类齐全，轻松购物</div>
                                     </div>
                                     <div class="col-6 col-md-3 mb-3 mb-md-0">
-                                        <div class="footer-icon text-danger mb-2" style="font-size:2.2rem;"><i
-                                                class="bi bi-lightning-charge"></i>
+                                        <div class="footer-icon text-danger mb-2"><i class="bi bi-lightning-charge"></i>
                                         </div>
                                         <div class="footer-text">多仓直发，极速配送</div>
                                     </div>
                                     <div class="col-6 col-md-3 mb-3 mb-md-0">
-                                        <div class="footer-icon text-danger mb-2" style="font-size:2.2rem;"><i
-                                                class="bi bi-patch-check"></i>
+                                        <div class="footer-icon text-danger mb-2"><i class="bi bi-patch-check"></i>
                                         </div>
                                         <div class="footer-text">正品行货，精致服务</div>
                                     </div>
                                     <div class="col-6 col-md-3">
-                                        <div class="footer-icon text-danger mb-2" style="font-size:2.2rem;"><i
-                                                class="bi bi-cash-coin"></i>
-                                        </div>
+                                        <div class="footer-icon text-danger mb-2"><i class="bi bi-cash-coin"></i></div>
                                         <div class="footer-text">天天低价，畅选无忧</div>
                                     </div>
                                 </div>
@@ -472,78 +801,262 @@
                             var APP_CONTEXT_PATH = '${pageContext.request.contextPath}';
                             var PRODUCT_ID = '${not empty product ? product.id : ""}';
 
-                            // 数量选择器逻辑
-                            var qtyInput = document.getElementById('quantity');
-                            if (qtyInput) {
-                                document.getElementById('decreaseQty').onclick = function () {
-                                    var v = parseInt(qtyInput.value) || 1;
-                                    if (v > 1) qtyInput.value = v - 1;
-                                };
-                                document.getElementById('increaseQty').onclick = function () {
-                                    var v = parseInt(qtyInput.value) || 1;
-                                    if (v < 99) qtyInput.value = v + 1;
-                                };
-                            }
-
-                            // 加入购物车按钮逻辑
-                            var addToCartBtn = document.getElementById('addToCartBtn');
-                            if (addToCartBtn) {
-                                addToCartBtn.onclick = function (event) {
-                                    event.preventDefault();
-                                    if (!PRODUCT_ID) {
-                                        alert('商品信息不存在');
-                                        return false;
-                                    }
-                                    var quantity = parseInt(qtyInput.value) || 1;
-                                    if (!USER_IS_LOGGED_IN) {
-                                        alert('请先登录！');
-                                        window.location.href = APP_CONTEXT_PATH + '/login';
-                                        return false;
-                                    }
-                                    var url = APP_CONTEXT_PATH + '/cart?action=add&productId=' + PRODUCT_ID + '&quantity=' + quantity;
-                                    window.location.href = url;
-                                };
-                            }
-
-                            // 立即购买按钮逻辑
-                            var buyNowBtn = document.getElementById('buyNowBtn');
-                            if (buyNowBtn) {
-                                buyNowBtn.onclick = function (event) {
-                                    event.preventDefault();
-                                    if (!PRODUCT_ID) {
-                                        alert('商品信息不存在');
-                                        return false;
-                                    }
-                                    var quantity = parseInt(qtyInput.value) || 1;
-                                    if (!USER_IS_LOGGED_IN) {
-                                        alert('请先登录！');
-                                        window.location.href = APP_CONTEXT_PATH + '/login';
-                                        return false;
-                                    }
-                                    var url = APP_CONTEXT_PATH + '/checkout?productId=' + PRODUCT_ID + '&quantity=' + quantity;
-                                    window.location.href = url;
-                                };
-                            }
-
-                            // 图片缩略图切换逻辑
+                            // 页面加载完成后执行
                             document.addEventListener('DOMContentLoaded', function () {
+                                // 数量选择器逻辑
+                                var qtyInput = document.getElementById('quantity');
+                                var decreaseBtn = document.getElementById('decreaseQty');
+                                var increaseBtn = document.getElementById('increaseQty');
+
+                                if (qtyInput && decreaseBtn && increaseBtn) {
+                                    // 减少数量
+                                    decreaseBtn.onclick = function () {
+                                        var currentValue = parseInt(qtyInput.value) || 1;
+                                        if (currentValue > 1) {
+                                            qtyInput.value = currentValue - 1;
+                                        }
+                                    };
+
+                                    // 增加数量
+                                    increaseBtn.onclick = function () {
+                                        var currentValue = parseInt(qtyInput.value) || 1;
+                                        if (currentValue < 99) {
+                                            qtyInput.value = currentValue + 1;
+                                        }
+                                    };
+
+                                    // 输入框值变化验证
+                                    qtyInput.addEventListener('input', function () {
+                                        var value = parseInt(this.value);
+                                        if (isNaN(value) || value < 1) {
+                                            this.value = 1;
+                                        } else if (value > 99) {
+                                            this.value = 99;
+                                        }
+                                    });
+
+                                    // 失去焦点时验证
+                                    qtyInput.addEventListener('blur', function () {
+                                        if (this.value === '' || parseInt(this.value) < 1) {
+                                            this.value = 1;
+                                        }
+                                    });
+                                }
+
+                                // 加入购物车按钮逻辑
+                                var addToCartBtn = document.getElementById('addToCartBtn');
+                                if (addToCartBtn) {
+                                    addToCartBtn.onclick = function (event) {
+                                        event.preventDefault();
+
+                                        if (!PRODUCT_ID) {
+                                            alert('商品信息不存在');
+                                            return false;
+                                        }
+
+                                        if (!USER_IS_LOGGED_IN) {
+                                            alert('请先登录！');
+                                            window.location.href = APP_CONTEXT_PATH + '/login';
+                                            return false;
+                                        }
+
+                                        var quantity = parseInt(qtyInput.value) || 1;
+
+                                        // 添加加载效果
+                                        var originalText = this.innerHTML;
+                                        this.innerHTML = '<i class="bi bi-hourglass-split"></i> 添加中...';
+                                        this.style.pointerEvents = 'none';
+
+                                        // 模拟加载时间，然后跳转
+                                        setTimeout(function () {
+                                            var url = APP_CONTEXT_PATH + '/cart?action=add&productId=' + PRODUCT_ID + '&quantity=' + quantity;
+                                            window.location.href = url;
+                                        }, 500);
+                                    };
+                                }
+
+                                // 立即购买按钮逻辑
+                                var buyNowBtn = document.getElementById('buyNowBtn');
+                                if (buyNowBtn) {
+                                    buyNowBtn.onclick = function (event) {
+                                        event.preventDefault();
+
+                                        if (!PRODUCT_ID) {
+                                            alert('商品信息不存在');
+                                            return false;
+                                        }
+
+                                        if (!USER_IS_LOGGED_IN) {
+                                            alert('请先登录！');
+                                            window.location.href = APP_CONTEXT_PATH + '/login';
+                                            return false;
+                                        }
+
+                                        var quantity = parseInt(qtyInput.value) || 1;
+
+                                        // 添加加载效果
+                                        var originalText = this.innerHTML;
+                                        this.innerHTML = '<i class="bi bi-hourglass-split"></i> 处理中...';
+                                        this.style.pointerEvents = 'none';
+
+                                        // 模拟加载时间，然后跳转
+                                        setTimeout(function () {
+                                            var url = APP_CONTEXT_PATH + '/checkout?productId=' + PRODUCT_ID + '&quantity=' + quantity;
+                                            window.location.href = url;
+                                        }, 500);
+                                    };
+                                }
+
+                                // 图片缩略图切换逻辑
                                 var thumbnails = document.querySelectorAll('.thumbnail');
                                 var mainImage = document.getElementById('mainImage');
 
-                                thumbnails.forEach(function (thumbnail) {
-                                    thumbnail.addEventListener('click', function () {
-                                        // 移除所有缩略图的active类
-                                        thumbnails.forEach(function (thumb) {
-                                            thumb.classList.remove('active');
+                                if (thumbnails.length > 0 && mainImage) {
+                                    thumbnails.forEach(function (thumbnail) {
+                                        thumbnail.addEventListener('click', function () {
+                                            // 移除所有缩略图的active类
+                                            thumbnails.forEach(function (thumb) {
+                                                thumb.classList.remove('active');
+                                            });
+
+                                            // 添加active类到当前点击的缩略图
+                                            this.classList.add('active');
+
+                                            // 更新主图，添加淡入效果
+                                            mainImage.style.opacity = '0.5';
+                                            setTimeout(function () {
+                                                mainImage.src = thumbnail.getAttribute('data-src');
+                                                mainImage.style.opacity = '1';
+                                            }, 150);
                                         });
 
-                                        // 添加active类到当前点击的缩略图
-                                        this.classList.add('active');
+                                        // 添加键盘支持
+                                        thumbnail.addEventListener('keydown', function (e) {
+                                            if (e.key === 'Enter' || e.key === ' ') {
+                                                e.preventDefault();
+                                                this.click();
+                                            }
+                                        });
 
-                                        // 更新主图
-                                        mainImage.src = this.getAttribute('data-src');
+                                        // 使缩略图可聚焦
+                                        thumbnail.setAttribute('tabindex', '0');
+                                    });
+                                }
+
+                                // 图片加载错误处理
+                                if (mainImage) {
+                                    mainImage.addEventListener('error', function () {
+                                        this.src = APP_CONTEXT_PATH + '/images/placeholder.jpg';
+                                        this.alt = '图片加载失败';
+                                    });
+                                }
+
+                                // 为所有缩略图添加错误处理
+                                thumbnails.forEach(function (thumbnail) {
+                                    thumbnail.addEventListener('error', function () {
+                                        this.style.display = 'none';
                                     });
                                 });
+
+                                // 添加页面加载动画
+                                var container = document.querySelector('.product-detail-container');
+                                if (container) {
+                                    container.style.opacity = '0';
+                                    container.style.transform = 'translateY(20px)';
+                                    container.style.transition = 'all 0.6s ease';
+
+                                    setTimeout(function () {
+                                        container.style.opacity = '1';
+                                        container.style.transform = 'translateY(0)';
+                                    }, 100);
+                                }
+
+                                // 滚动到顶部功能（可选）
+                                var scrollToTop = function () {
+                                    window.scrollTo({
+                                        top: 0,
+                                        behavior: 'smooth'
+                                    });
+                                };
+
+                                // 如果页面很长，可以添加返回顶部按钮
+                                var createBackToTopButton = function () {
+                                    var backToTopBtn = document.createElement('button');
+                                    backToTopBtn.innerHTML = '<i class="bi bi-arrow-up"></i>';
+                                    backToTopBtn.className = 'btn btn-primary position-fixed';
+                                    backToTopBtn.style.cssText = `
+                    bottom: 20px;
+                    right: 20px;
+                    z-index: 1000;
+                    border-radius: 50%;
+                    width: 50px;
+                    height: 50px;
+                    display: none;
+                    box-shadow: 0 4px 15px rgba(255, 71, 87, 0.3);
+                `;
+
+                                    backToTopBtn.onclick = scrollToTop;
+                                    document.body.appendChild(backToTopBtn);
+
+                                    // 滚动显示/隐藏按钮
+                                    window.addEventListener('scroll', function () {
+                                        if (window.pageYOffset > 300) {
+                                            backToTopBtn.style.display = 'block';
+                                        } else {
+                                            backToTopBtn.style.display = 'none';
+                                        }
+                                    });
+                                };
+
+                                // 如果页面内容足够长，创建返回顶部按钮
+                                if (document.body.scrollHeight > window.innerHeight + 500) {
+                                    createBackToTopButton();
+                                }
+
+                                // 添加商品推荐卡片的懒加载效果
+                                var recommendItems = document.querySelectorAll('.product-recommend-item');
+                                if (recommendItems.length > 0) {
+                                    var observerOptions = {
+                                        threshold: 0.1,
+                                        rootMargin: '0px 0px -50px 0px'
+                                    };
+
+                                    var observer = new IntersectionObserver(function (entries) {
+                                        entries.forEach(function (entry) {
+                                            if (entry.isIntersecting) {
+                                                entry.target.style.opacity = '1';
+                                                entry.target.style.transform = 'translateY(0)';
+                                            }
+                                        });
+                                    }, observerOptions);
+
+                                    recommendItems.forEach(function (item, index) {
+                                        item.style.opacity = '0';
+                                        item.style.transform = 'translateY(20px)';
+                                        item.style.transition = 'all 0.6s ease ' + (index * 0.1) + 's';
+                                        observer.observe(item);
+                                    });
+                                }
+                            });
+
+                            // 全局错误处理
+                            window.addEventListener('error', function (e) {
+                                console.error('页面错误:', e.error);
+                            });
+
+                            // 防止表单重复提交
+                            var formSubmitted = false;
+                            var preventDoubleSubmit = function () {
+                                if (formSubmitted) {
+                                    return false;
+                                }
+                                formSubmitted = true;
+                                return true;
+                            };
+
+                            // 页面卸载前重置标志
+                            window.addEventListener('beforeunload', function () {
+                                formSubmitted = false;
                             });
                         </script>
                     </body>
