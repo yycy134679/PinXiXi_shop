@@ -76,6 +76,40 @@
                     font-weight: 500;
                     letter-spacing: 0.01em;
                 }
+
+                /* 购物车角标优化样式 */
+                .cart-link {
+                    position: relative;
+                    display: inline-block;
+                }
+
+                .cart-badge {
+                    position: absolute;
+                    top: -8px;
+                    right: -8px;
+                    background-color: #dc3545;
+                    color: white;
+                    border-radius: 50%;
+                    width: 20px;
+                    height: 20px;
+                    font-size: 12px;
+                    font-weight: bold;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    line-height: 1;
+                    min-width: 20px;
+                    padding: 0;
+                    border: 2px solid white;
+                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+                }
+
+                .cart-badge.large-number {
+                    width: 24px;
+                    height: 20px;
+                    border-radius: 10px;
+                    font-size: 11px;
+                }
             </style>
         </head>
 
@@ -144,12 +178,13 @@
                                         </ul>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="${pageContext.request.contextPath}/cart">
+                                        <a class="nav-link cart-link" href="${pageContext.request.contextPath}/cart">
                                             <i class="bi bi-cart-fill"></i> 购物车
                                             <c:if
-                                                test="${not empty sessionScope.cart && sessionScope.cart.totalItemsCount > 0}">
+                                                test="${not empty sessionScope.shoppingCart && sessionScope.shoppingCart.totalItemsCount > 0}">
                                                 <span
-                                                    class="badge bg-danger ms-1">${sessionScope.cart.totalItemsCount}</span>
+                                                    class="cart-badge ${sessionScope.shoppingCart.totalItemsCount > 99 ? 'large-number' : ''}">${sessionScope.shoppingCart.totalItemsCount
+                                                    > 99 ? '99+' : sessionScope.shoppingCart.totalItemsCount}</span>
                                             </c:if>
                                         </a>
                                     </li>
