@@ -43,6 +43,24 @@ public interface IUserDao {
     void update(User user) throws SQLException;
 
     /**
+     * 更新用户密码
+     * 
+     * @param userId      用户ID
+     * @param newPassword 新密码
+     * @throws SQLException 数据库异常
+     */
+    void updatePassword(int userId, String newPassword) throws SQLException;
+
+    /**
+     * 更新用户头像路径
+     * 
+     * @param userId     用户ID
+     * @param avatarPath 头像路径
+     * @throws SQLException 数据库异常
+     */
+    void updateAvatar(int userId, String avatarPath) throws SQLException;
+
+    /**
      * 根据手机号查找用户
      * 
      * @param phone 手机号
@@ -50,4 +68,13 @@ public interface IUserDao {
      * @throws SQLException 数据库异常
      */
     User findByPhone(String phone) throws SQLException;
+
+    /**
+     * 根据邮箱查找用户
+     * 
+     * @param email 邮箱
+     * @return User对象，未找到返回null
+     * @throws SQLException 数据库异常
+     */
+    User findByEmail(String email) throws SQLException;
 }

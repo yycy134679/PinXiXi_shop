@@ -92,9 +92,8 @@ public class UserServiceImpl implements IUserService {
             if (newPassword == null || newPassword.length() < 6) {
                 return false;
             }
-            // 直接更新密码（假设 userDao 有 updatePassword 方法，否则可用 update 方法）
-            user.setPassword(newPassword);
-            userDao.update(user);
+            // 使用专门的updatePassword方法
+            userDao.updatePassword(userId, newPassword);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -105,12 +104,8 @@ public class UserServiceImpl implements IUserService {
     @Override
     public boolean updateUserAvatar(int userId, String avatarPath) {
         try {
-            User user = userDao.findById(userId);
-            if (user == null) {
-                return false;
-            }
-            user.setAvatarPath(avatarPath);
-            userDao.update(user);
+            // 使用专门的updateAvatar方法
+            userDao.updateAvatar(userId, avatarPath);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -138,6 +133,16 @@ public class UserServiceImpl implements IUserService {
         }
     }
 
+    @Override
+    public boolean isEmailAvailable(String email) {
+        try {
+            return userDao.findByEmail(email) == null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     // 新增：用户名是否存在
     public boolean checkUsernameExists(String username) {
         try {
@@ -151,6 +156,15 @@ public class UserServiceImpl implements IUserService {
     public boolean checkPhoneExists(String phone) {
         try {
             return userDao.findByPhone(phone) != null;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    // 新增：邮箱是否存在
+    public boolean checkEmailExists(String email) {
+        try {
+            return userDao.findByEmail(email) != null;
         } catch (Exception e) {
             return false;
         }

@@ -17,11 +17,36 @@ public class AddressServiceImpl implements IAddressService {
 
     @Override
     public Address getAddressByUserId(int userId) {
-        throw new UnsupportedOperationException("getAddressByUserId not implemented yet.");
+        try {
+            return addressDao.findByUserId(userId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
     public boolean saveOrUpdateAddress(Address address) {
-        throw new UnsupportedOperationException("saveOrUpdateAddress not implemented yet.");
+        try {
+            if (address == null || address.getUserId() <= 0) {
+                return false;
+            }
+
+            // 查找是否已存在地址
+            Address existingAddress = addressDao.findByUserId(address.getUserId());
+
+            if (existingAddress == null) {
+                // 新增地址
+                addressDao.save(address);
+            } else {
+                // 更新地址
+                address.setId(existingAddress.getId());
+                addressDao.update(address);
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

@@ -76,5 +76,13 @@ public interface IUserService {
      */
     boolean isPhoneAvailable(String phone);
 
+    /**
+     * 检查邮箱是否可用（未被注册）。
+     * 
+     * @param email 邮箱
+     * @return 可用返回true，不可用返回false
+     */
+    boolean isEmailAvailable(String email);
+
     // 登出通常在 Servlet 中直接操作 Session，不需要 Service 方法
 }
