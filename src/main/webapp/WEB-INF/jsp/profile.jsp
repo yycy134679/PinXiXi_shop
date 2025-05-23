@@ -162,6 +162,19 @@
                     color: #dc3545 !important;
                 }
 
+                .phone-feedback {
+                    font-size: 0.875rem;
+                    margin-top: 5px;
+                }
+
+                .phone-feedback.text-success {
+                    color: #28a745 !important;
+                }
+
+                .phone-feedback.text-danger {
+                    color: #dc3545 !important;
+                }
+
                 .tab-content {
                     display: none;
                 }
@@ -293,7 +306,8 @@
                                             <div class="mb-3">
                                                 <label for="phone" class="form-label">手机号</label>
                                                 <input type="text" class="form-control" id="phone" name="phone"
-                                                    value="${userDetails.phone}" placeholder="请输入手机号">
+                                                    value="${userDetails.phone}" placeholder="请输入手机号" maxlength="11">
+                                                <div id="phone-feedback" class="phone-feedback"></div>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -496,6 +510,49 @@
                                 feedback.className = 'email-feedback text-danger';
                             });
                     }, 500);
+                });
+
+                // 手机号可用性检查
+                let phoneCheckTimeout;
+                document.getElementById('phone').addEventListener('input', function () {
+                    clearTimeout(phoneCheckTimeout);
+                    const phone = this.value.trim();
+                    const feedback = document.getElementById('phone-feedback');
+
+                    if (phone === '') {
+                        feedback.textContent = '';
+                        feedback.className = 'phone-feedback';
+                        return;
+                    }
+
+                    // 检查手机号格式（11位数字）
+                    if (phone.length > 0 && (!/^\d+$/.test(phone) || phone.length !== 11)) {
+                        feedback.textContent = '请输入11位手机号码';
+                        feedback.className = 'phone-feedback text-danger';
+                        return;
+                    }
+
+                    if (phone.length === 11) {
+                        phoneCheckTimeout = setTimeout(() => {
+                            fetch('${pageContext.request.contextPath}/profile?action=checkPhoneAvailability', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/x-www-form-urlencoded',
+                                },
+                                body: 'phone=' + encodeURIComponent(phone)
+                            })
+                                .then(response => response.json())
+                                .then(data => {
+                                    feedback.textContent = data.message;
+                                    feedback.className = 'phone-feedback ' + (data.available ? 'text-success' : 'text-danger');
+                                })
+                                .catch(error => {
+                                    console.error('Error:', error);
+                                    feedback.textContent = '检查失败';
+                                    feedback.className = 'phone-feedback text-danger';
+                                });
+                        }, 500);
+                    }
                 });
 
                 // 头像预览

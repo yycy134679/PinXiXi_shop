@@ -110,6 +110,9 @@ public class ProfileServlet extends HttpServlet {
                 case "checkEmailAvailability":
                     handleCheckEmailAvailability(request, response, loggedInUser);
                     break;
+                case "checkPhoneAvailability":
+                    handleCheckPhoneAvailability(request, response, loggedInUser);
+                    break;
                 default:
                     response.sendRedirect(request.getContextPath() + "/profile");
                     break;
@@ -147,6 +150,23 @@ public class ProfileServlet extends HttpServlet {
             User existingUser = userService.getUserById(loggedInUser.getId());
             if (!email.equals(existingUser.getEmail()) && !userService.isEmailAvailable(email)) {
                 request.setAttribute("errorMessage", "该邮箱已被其他用户使用");
+                doGet(request, response);
+                return;
+            }
+        }
+
+        // 检查手机号是否被其他用户使用
+        if (phone != null && !phone.trim().isEmpty()) {
+            // 验证手机号格式（11位数字）
+            if (!phone.matches("^\\d{11}$")) {
+                request.setAttribute("errorMessage", "请输入11位手机号码");
+                doGet(request, response);
+                return;
+            }
+
+            User existingUser = userService.getUserById(loggedInUser.getId());
+            if (!phone.equals(existingUser.getPhone()) && !userService.isPhoneAvailable(phone)) {
+                request.setAttribute("errorMessage", "该手机号已被其他用户使用");
                 doGet(request, response);
                 return;
             }
@@ -344,6 +364,44 @@ public class ProfileServlet extends HttpServlet {
 
         boolean available = userService.isEmailAvailable(email);
         String message = available ? "邮箱可用" : "该邮箱已被使用";
+
+        response.getWriter().write("{\"available\": " + available + ", \"message\": \"" + message + "\"}");
+    }
+
+    /**
+     * 处理手机号可用性检查（AJAX请求）
+     */
+    private void handleCheckPhoneAvailability(HttpServletRequest request, HttpServletResponse response,
+            User loggedInUser)
+            throws ServletException, IOException {
+
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+
+        String phone = request.getParameter("phone");
+
+        if (phone == null || phone.trim().isEmpty()) {
+            response.getWriter().write("{\"available\": false, \"message\": \"手机号不能为空\"}");
+            return;
+        }
+
+        // 验证手机号格式（11位数字）
+        if (!phone.matches("^\\d{11}$")) {
+            response.getWriter().write("{\"available\": false, \"message\": \"请输入11位手机号码\"}");
+            return;
+        }
+
+        // 获取当前用户的手机号
+        User currentUser = userService.getUserById(loggedInUser.getId());
+
+        // 如果手机号没有变化，则认为可用
+        if (phone.equals(currentUser.getPhone())) {
+            response.getWriter().write("{\"available\": true, \"message\": \"手机号可用\"}");
+            return;
+        }
+
+        boolean available = userService.isPhoneAvailable(phone);
+        String message = available ? "手机号可用" : "该手机号已被使用";
 
         response.getWriter().write("{\"available\": " + available + ", \"message\": \"" + message + "\"}");
     }
