@@ -17,90 +17,64 @@
                 <link rel="stylesheet"
                     href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
                 <style type="text/css">
-                    /* style.css 内容内联 */
-                    .navbar-brand-text {
-                        font-size: 2rem;
-                        font-weight: bold;
-                        vertical-align: middle;
-                        font-family: 'KaiTi', 'SimSun', sans-serif;
-                        color: #D23F31;
-                        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+                    /* 现代化电商平台样式 */
+                    :root {
+                        --primary-red: #ff4757;
+                        --primary-orange: #ffa502;
+                        --success-green: #2ed573;
+                        --info-blue: #3742fa;
+                        --dark-gray: #2f3542;
+                        --light-gray: #f1f2f6;
+                        --warm-white: #ffffff;
+                        --shadow-color: rgba(0, 0, 0, 0.1);
                     }
 
+                    /* 页面背景 */
+                    body {
+                        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+                        min-height: 100vh;
+                        font-family: 'Microsoft YaHei', '微软雅黑', sans-serif;
+                    }
+
+                    /* 导航栏样式升级 */
                     .navbar {
+                        background: linear-gradient(135deg, #ff4757 0%, #ff3742 100%) !important;
+                        box-shadow: 0 2px 20px rgba(255, 71, 87, 0.3);
+                        border: none;
                         padding-top: 0.8rem;
                         padding-bottom: 0.8rem;
+                    }
+
+                    .navbar-brand-text {
+                        color: white !important;
+                        font-size: 2.8rem;
+                        font-weight: 900;
+                        letter-spacing: 0.08em;
+                        font-family: 'Arial Black', 'FZYaoti', 'FZCuHeiSongS-B-GB', 'FZShuTi', 'STHeiti', 'SimHei', sans-serif;
+                        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+                        vertical-align: middle;
                     }
 
                     .navbar-brand img {
                         margin-top: -0.25rem;
                     }
 
-                    .carousel-item img {
-                        max-height: 400px;
-                        object-fit: contain;
-                        width: 100%;
-                    }
-
-                    .card.h-100 {
-                        height: 100%;
-                        display: flex;
-                        flex-direction: column;
-                    }
-
-                    .card-img-top {
-                        width: 100%;
-                        height: 260px;
-                        object-fit: cover;
-                        background: #f8f9fa;
-                    }
-
-                    .card-body {
-                        flex: 1 1 auto;
-                        display: flex;
-                        flex-direction: column;
-                    }
-
-                    .card-title {
-                        min-height: 3em;
-                        font-size: 1.1rem;
-                        margin-bottom: 0.5rem;
-                    }
-
-                    .add-to-cart-btn {
-                        margin-top: auto;
-                    }
-
-                    .custom-footer {
-                        background: #f8f9fb;
-                        border-top: 1px solid #eee;
-                    }
-
-                    .footer-icon {
-                        font-size: 2.2rem;
-                    }
-
-                    .footer-text {
-                        font-size: 1.08rem;
-                        color: #333;
-                        font-weight: 500;
-                        letter-spacing: 0.01em;
-                    }
-
+                    /* 导航链接样式 */
                     .navbar-nav .nav-link {
                         font-size: 1.35rem;
                         font-weight: 600;
                         padding-left: 1.2rem;
                         padding-right: 1.2rem;
-                        color: #444 !important;
+                        color: white !important;
                         letter-spacing: 0.03em;
-                        transition: color 0.2s;
+                        transition: all 0.3s ease;
                     }
 
                     .navbar-nav .nav-link:hover,
                     .navbar-nav .nav-link:focus {
-                        color: #ff4d4f !important;
-                        text-shadow: 0 1px 0 #fff2f0;
+                        color: #ffeaa7 !important;
+                        transform: translateY(-1px);
+                        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
                     }
 
                     .navbar-nav .nav-item .bi {
@@ -114,6 +88,37 @@
                         padding: 0.4em 0.7em;
                     }
 
+                    /* 搜索框美化 */
+                    .navbar form input.form-control {
+                        border-radius: 25px;
+                        border: 2px solid rgba(255, 255, 255, 0.3);
+                        background: rgba(255, 255, 255, 0.9);
+                        padding: 10px 20px;
+                        font-size: 14px;
+                        transition: all 0.3s ease;
+                    }
+
+                    .navbar form input.form-control:focus {
+                        border-color: var(--primary-orange);
+                        box-shadow: 0 0 0 3px rgba(255, 165, 2, 0.2);
+                        background: white;
+                    }
+
+                    .navbar form button {
+                        border-radius: 25px;
+                        background: var(--primary-orange);
+                        border: none;
+                        padding: 10px 20px;
+                        font-weight: 600;
+                        transition: all 0.3s ease;
+                    }
+
+                    .navbar form button:hover {
+                        background: #ff9500;
+                        transform: translateY(-1px);
+                        box-shadow: 0 4px 12px rgba(255, 165, 2, 0.3);
+                    }
+
                     /* 购物车角标优化样式 */
                     .cart-link {
                         position: relative;
@@ -124,7 +129,7 @@
                         position: absolute;
                         top: -8px;
                         right: -8px;
-                        background-color: #dc3545;
+                        background: linear-gradient(135deg, var(--primary-orange), #ff6348);
                         color: white;
                         border-radius: 50%;
                         width: 20px;
@@ -139,6 +144,7 @@
                         padding: 0;
                         border: 2px solid white;
                         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+                        animation: pulse 2s infinite;
                     }
 
                     .cart-badge.large-number {
@@ -147,18 +153,265 @@
                         border-radius: 10px;
                         font-size: 11px;
                     }
+
+                    @keyframes pulse {
+                        0% {
+                            transform: scale(1);
+                        }
+
+                        50% {
+                            transform: scale(1.1);
+                        }
+
+                        100% {
+                            transform: scale(1);
+                        }
+                    }
+
+                    /* 主要内容区域 */
+                    .container.mt-4 {
+                        background: white;
+                        border-radius: 20px;
+                        padding: 30px;
+                        margin-top: 30px !important;
+                        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+                    }
+
+                    /* 容器间距优化 */
+                    .container {
+                        padding-left: 20px;
+                        padding-right: 20px;
+                    }
+
+                    /* 轮播图美化 */
+                    #homeCarousel {
+                        border-radius: 20px;
+                        overflow: hidden;
+                        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+                        margin-bottom: 40px;
+                    }
+
+                    .carousel-item img {
+                        max-height: 450px;
+                        object-fit: cover;
+                        width: 100%;
+                    }
+
+                    /* 轮播指示器美化 */
+                    .carousel-indicators button {
+                        width: 12px;
+                        height: 12px;
+                        border-radius: 50%;
+                        border: 2px solid white;
+                        background-color: rgba(255, 255, 255, 0.5);
+                        transition: all 0.3s ease;
+                    }
+
+                    .carousel-indicators button.active {
+                        background-color: var(--primary-red);
+                        transform: scale(1.2);
+                    }
+
+                    /* 商品网格间距 */
+                    .row .col-lg-3,
+                    .row .col-md-4,
+                    .row .col-sm-6 {
+                        padding: 15px;
+                    }
+
+                    /* 商品卡片视觉升级 */
+                    .card.h-100 {
+                        height: 100%;
+                        display: flex;
+                        flex-direction: column;
+                        border: none;
+                        border-radius: 15px;
+                        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+                        transition: all 0.3s ease;
+                        overflow: hidden;
+                        background: white;
+                    }
+
+                    .card.h-100:hover {
+                        transform: translateY(-8px);
+                        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+                    }
+
+                    .card-img-top {
+                        width: 100%;
+                        height: 260px;
+                        object-fit: cover;
+                        background: #f8f9fa;
+                        transition: transform 0.3s ease;
+                        border-radius: 15px 15px 0 0;
+                    }
+
+                    .card.h-100:hover .card-img-top {
+                        transform: scale(1.05);
+                    }
+
+                    .card-body {
+                        flex: 1 1 auto;
+                        display: flex;
+                        flex-direction: column;
+                        padding: 20px;
+                        position: relative;
+                    }
+
+                    .card-body::before {
+                        content: '';
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        height: 3px;
+                        background: linear-gradient(90deg, var(--primary-red), var(--primary-orange));
+                        border-radius: 15px 15px 0 0;
+                    }
+
+                    .card-title {
+                        min-height: 3em;
+                        font-size: 1.1rem;
+                        margin-bottom: 0.5rem;
+                        font-weight: 600;
+                        color: var(--dark-gray);
+                        line-height: 1.4;
+                    }
+
+                    .card-title a {
+                        color: var(--dark-gray);
+                        transition: color 0.3s ease;
+                        text-decoration: none;
+                    }
+
+                    .card-title a:hover {
+                        color: var(--primary-red);
+                    }
+
+                    /* 价格样式美化 */
+                    .card-text {
+                        font-size: 1.4rem;
+                        font-weight: 700;
+                        color: var(--primary-red);
+                        margin: 10px 0;
+                    }
+
+                    /* 销量标签美化 */
+                    .card-text.text-muted {
+                        background: var(--light-gray);
+                        color: var(--dark-gray) !important;
+                        padding: 5px 10px;
+                        border-radius: 15px;
+                        font-size: 0.85rem;
+                        display: inline-block;
+                        font-weight: 500;
+                        margin: 5px 0;
+                    }
+
+                    /* 按钮样式升级 */
+                    .add-to-cart-btn {
+                        margin-top: auto;
+                        background: linear-gradient(135deg, var(--primary-red), var(--primary-orange));
+                        border: none;
+                        border-radius: 25px;
+                        padding: 10px 20px;
+                        font-weight: 600;
+                        transition: all 0.3s ease;
+                        box-shadow: 0 4px 15px rgba(255, 71, 87, 0.3);
+                        color: white;
+                    }
+
+                    .add-to-cart-btn:hover {
+                        transform: translateY(-2px);
+                        box-shadow: 0 6px 20px rgba(255, 71, 87, 0.4);
+                        background: linear-gradient(135deg, var(--primary-orange), var(--primary-red));
+                        color: white;
+                    }
+
+                    /* 页脚样式升级 */
+                    .custom-footer {
+                        background: linear-gradient(135deg, #2f3542 0%, #40407a 100%);
+                        color: white;
+                        border-top: none;
+                        margin-top: 60px;
+                    }
+
+                    .footer-icon {
+                        font-size: 2.2rem;
+                        color: var(--primary-orange) !important;
+                        margin-bottom: 15px;
+                    }
+
+                    .footer-text {
+                        font-size: 1rem;
+                        color: #ddd !important;
+                        font-weight: 400;
+                        letter-spacing: 0.01em;
+                    }
+
+                    /* 提示信息样式优化 */
+                    .alert {
+                        border-radius: 15px;
+                        border: none;
+                        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+                        font-weight: 500;
+                    }
+
+                    .alert-info {
+                        background: linear-gradient(135deg, #74b9ff, #0984e3);
+                        color: white;
+                    }
+
+                    .alert-warning {
+                        background: linear-gradient(135deg, #fdcb6e, #e17055);
+                        color: white;
+                    }
+
+                    /* 下拉菜单美化 */
+                    .dropdown-menu {
+                        border-radius: 15px;
+                        border: none;
+                        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+                        padding: 10px 0;
+                    }
+
+                    .dropdown-item {
+                        padding: 10px 20px;
+                        transition: all 0.3s ease;
+                    }
+
+                    .dropdown-item:hover {
+                        background: linear-gradient(135deg, var(--primary-red), var(--primary-orange));
+                        color: white;
+                        transform: translateX(5px);
+                    }
+
+                    /* 响应式优化 */
+                    @media (max-width: 768px) {
+                        .navbar-brand-text {
+                            font-size: 2rem;
+                        }
+
+                        .container.mt-4 {
+                            padding: 20px;
+                            margin-top: 20px !important;
+                        }
+
+                        .card-body {
+                            padding: 15px;
+                        }
+                    }
                 </style>
             </head>
 
             <body>
                 <!-- navigation.jsp 内容内联 -->
-                <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+                <nav class="navbar navbar-expand-lg navbar-light sticky-top">
                     <div class="container">
                         <a class="navbar-brand" href="${pageContext.request.contextPath}/home">
                             <!-- <img src="${pageContext.request.contextPath}/images/logo.png" alt="拼夕夕 Logo" width="50"
                                 height="50" class="d-inline-block align-top me-2"> -->
-                            <span class="navbar-brand-text"
-                                style="color: #ff7c7c; font-size: 2.8rem; font-weight: 900; letter-spacing: 0.08em; font-family: 'Arial Black', 'FZYaoti', 'FZCuHeiSongS-B-GB', 'FZShuTi', 'STHeiti', 'SimHei', sans-serif;">拼夕夕商城</span>
+                            <span class="navbar-brand-text">拼夕夕商城</span>
                         </a>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                             data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
