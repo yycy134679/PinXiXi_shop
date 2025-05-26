@@ -12,6 +12,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * 登录控制器 LoginServlet
+ * 负责处理用户登录请求，包括：
+ * 1. 展示登录页面 (GET请求)
+ * 2. 处理登录操作 (POST请求)
+ */
+
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
     private IUserService userService = new UserServiceImpl();

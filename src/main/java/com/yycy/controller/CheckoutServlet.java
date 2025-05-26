@@ -30,10 +30,6 @@ import java.util.Collections;
  * 负责处理支付相关的请求，包括：
  * 1. 展示结算页面 (GET请求)
  * 2. 处理支付操作 (POST请求)
- * 
- * 支持两种进入方式：
- * - 从购物车"去结算"
- * - 从商品详情页"立即购买"
  */
 @WebServlet(urlPatterns = { "/checkout", "/submitOrder", "/paymentSuccess" })
 public class CheckoutServlet extends HttpServlet {

@@ -8,6 +8,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * 注销控制器 LogoutServlet
+ * 负责处理用户注销请求，包括：
+ * 1. 注销用户会话 (GET请求)
+ * 2. 重定向到首页
+ */
+
 @WebServlet("/logout")
 public class LogoutServlet extends HttpServlet {
     @Override

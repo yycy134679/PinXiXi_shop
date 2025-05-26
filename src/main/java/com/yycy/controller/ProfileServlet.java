@@ -23,6 +23,7 @@ import java.nio.file.Paths;
  * ProfileServlet.java
  * 个人中心控制器，处理用户个人信息管理、密码修改、头像上传、地址管理等功能
  */
+
 @WebServlet("/profile")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
         maxFileSize = 1024 * 1024 * 10, // 10MB

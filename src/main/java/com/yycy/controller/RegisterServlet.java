@@ -14,6 +14,13 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 注册控制器 RegisterServlet
+ * 负责处理用户注册请求，包括：
+ * 1. 展示注册页面 (GET请求)
+ * 2. 处理注册操作 (POST请求)
+ */
+
 @WebServlet("/register")
 public class RegisterServlet extends HttpServlet {
     private final IUserService userService = new UserServiceImpl();
